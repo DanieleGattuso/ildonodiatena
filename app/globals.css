@@ -1,0 +1,32 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-cream text-olive-900 font-sans antialiased;
+  }
+
+  /* Titoli di sezione coerenti */
+  h1,
+  h2,
+  h3 {
+    @apply font-serif;
+  }
+}
+
+@layer utilities {
+  /* Overlay graduale per leggibilità del testo sopra le immagini */
+  .overlay-bottom {
+    background: linear-gradient(
+      to top,
+      rgba(38, 42, 26, 0.75) 0%,
+      rgba(38, 42, 26, 0.35) 45%,
+      rgba(38, 42, 26, 0.1) 100%
+    );
+  }
+}
