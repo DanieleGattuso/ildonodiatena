@@ -1,14 +1,17 @@
 /**
  * Sorgente unica dei contenuti del sito.
- * Aggiornare qui testi, foto e dati di contatto: i componenti li consumano.
+ * Aggiornare qui testi, foto, prezzi e dati di contatto: i componenti li consumano.
  */
 
 export type Apartment = {
-  id: string;
+  id: "atena" | "era";
   name: string;
   tagline: string;
   description: string;
   features: string[];
+  /** Prezzo per notte in centesimi di euro (usato lato server per Stripe). */
+  pricePerNight: number;
+  maxGuests: number;
   image: string;
   imageAlt: string;
 };
@@ -26,6 +29,8 @@ export const apartments: Apartment[] = [
       "Cucina abitabile completa",
       "Climatizzazione in ogni ambiente",
     ],
+    pricePerNight: 12000, // 120,00 €
+    maxGuests: 4,
     image: "/images/apartments/atena.jpg",
     imageAlt:
       "Interni luminosi dell'appartamento Atena con veranda affacciata sulla piscina",
@@ -42,11 +47,18 @@ export const apartments: Apartment[] = [
       "Zona pranzo all'aperto",
       "Ingresso totalmente indipendente",
     ],
+    pricePerNight: 11000, // 110,00 €
+    maxGuests: 4,
     image: "/images/apartments/era.jpg",
     imageAlt:
       "Spazio esterno dell'appartamento Era immerso tra ulivi e agrumeti",
   },
 ];
+
+/** Lookup rapido per id (usato lato server in fase di checkout). */
+export function getApartment(id: string): Apartment | undefined {
+  return apartments.find((a) => a.id === id);
+}
 
 export const contact = {
   address: "Via dei Papaveri, Cefalù (PA)",
@@ -54,11 +66,58 @@ export const contact = {
   phoneHref: "tel:+390000000000",
   email: "info@ildonodiatena.it",
   emailHref: "mailto:info@ildonodiatena.it",
+  mapsQuery: "Via+dei+Papaveri,+Cefalù",
 };
 
 export const navLinks = [
   { label: "La Struttura", href: "#struttura" },
   { label: "Appartamenti", href: "#appartamenti" },
   { label: "Territorio", href: "#territorio" },
+  { label: "Prenota", href: "#prenota" },
   { label: "Dove siamo", href: "#location" },
+];
+
+export type Feature = {
+  icon: string; // nome icona lucide
+  title: string;
+  description: string;
+};
+
+export const features: Feature[] = [
+  {
+    icon: "Waves",
+    title: "Piscina",
+    description:
+      "Ampia piscina immersa nel verde, cuore della struttura e luogo perfetto per il relax sotto il sole siciliano.",
+  },
+  {
+    icon: "Leaf",
+    title: "Energia rinnovabile",
+    description:
+      "Impianto fotovoltaico e caldaia a pellet: una struttura sostenibile, a basso impatto ambientale.",
+  },
+  {
+    icon: "Wifi",
+    title: "Wi-Fi gratuito",
+    description:
+      "Connessione veloce in tutta la proprietà, per restare connesso anche in vacanza.",
+  },
+  {
+    icon: "Car",
+    title: "Parcheggio privato",
+    description:
+      "Posto auto riservato all'interno della tenuta, comodo e sicuro.",
+  },
+  {
+    icon: "Snowflake",
+    title: "Climatizzazione",
+    description:
+      "Aria condizionata in tutti gli ambienti per il massimo comfort in ogni stagione.",
+  },
+  {
+    icon: "Trees",
+    title: "Tenuta biologica",
+    description:
+      "Uliveti e agrumeti coltivati biologicamente che circondano gli appartamenti.",
+  },
 ];

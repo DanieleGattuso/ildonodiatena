@@ -1,0 +1,9 @@
+# Copia questo file in `.dev.vars` per lo sviluppo locale con `next dev` / `wrangler pages dev`.
+# NON committare `.dev.vars` (è già in .gitignore).
+
+# Chiave segreta Stripe (in modalità test inizia con "sk_test_")
+STRIPE_SECRET_KEY="<incolla-qui-la-tua-stripe-secret-key>"
+
+# Segreto di firma del webhook Stripe (inizia con "whsec_")
+# In locale lo ottieni da:  stripe listen --forward-to localhost:8788/api/webhooks/stripe
+STRIPE_WEBHOOK_SECRET="<incolla-qui-il-tuo-webhook-signing-secret>"
