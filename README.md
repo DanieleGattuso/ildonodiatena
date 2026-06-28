@@ -44,7 +44,11 @@ wrangler.toml                Config Cloudflare (binding D1)
 
 1. L'utente sceglie appartamento e date (il calendario disabilita le date già occupate, lette da `/api/availability`).
 2. `/api/checkout` **ricontrola la disponibilità lato server**, calcola il prezzo (notti × tariffa, mai dal client), crea una prenotazione `pending` su D1 e una sessione **Stripe Checkout**, poi reindirizza l'utente al pagamento.
-3. A pagamento avvenuto, Stripe chiama `/api/webhooks/stripe` che (verificata la firma) imposta la prenotazione su `confirmed`. Una sessione scaduta la imposta su `cancelled` liberando le date.
+3. A pagamento avvenuto, Stripe chiama `/api/webhooks/stripe` che (verificata la firma) imposta la prenotazione su `confirmed` e invia l'email di conferma (se Resend è configurato). Una sessione scaduta la imposta su `cancelled` liberando le date.
+
+**Auto-scadenza prenotazioni pending:** una prenotazione `pending` blocca le date solo per 60 minuti (tempo per pagare). Trascorso il termine viene ignorata automaticamente nei controlli di disponibilità — nessun cron job necessario.
+
+**Area admin:** la pagina `/admin` (protetta da `ADMIN_TOKEN`) mostra tutte le prenotazioni con stato, ospite, date e importo.
 
 ## Setup
 
@@ -99,6 +103,9 @@ npm run pages:deploy   # deploy su Cloudflare Pages
 | `database_id` | `wrangler.toml` | ID del database D1 creato con `wrangler d1 create` |
 | `STRIPE_SECRET_KEY` | `.dev.vars` (locale) / Pages secret (prod) | Chiave segreta Stripe (`sk_test_...` / `sk_live_...`) |
 | `STRIPE_WEBHOOK_SECRET` | `.dev.vars` (locale) / Pages secret (prod) | Signing secret del webhook (`whsec_...`) |
+| `RESEND_API_KEY` | opzionale | Abilita l'email di conferma via Resend |
+| `EMAIL_FROM` | opzionale | Mittente delle email (dominio verificato su Resend) |
+| `ADMIN_TOKEN` | opzionale | Token per accedere all'area admin su `/admin` |
 
 ## Immagini
 

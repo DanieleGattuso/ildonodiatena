@@ -7,3 +7,10 @@ STRIPE_SECRET_KEY="<incolla-qui-la-tua-stripe-secret-key>"
 # Segreto di firma del webhook Stripe (inizia con "whsec_")
 # In locale lo ottieni da:  stripe listen --forward-to localhost:8788/api/webhooks/stripe
 STRIPE_WEBHOOK_SECRET="<incolla-qui-il-tuo-webhook-signing-secret>"
+
+# (Opzionale) Email di conferma via Resend. Senza questa chiave l'invio è disattivato.
+RESEND_API_KEY="<opzionale-resend-api-key>"
+EMAIL_FROM="Il dono di Atena <prenotazioni@tuodominio.it>"
+
+# (Opzionale) Token per accedere all'area admin su /admin.
+ADMIN_TOKEN="<scegli-un-token-segreto>"

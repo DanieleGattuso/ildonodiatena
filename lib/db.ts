@@ -1,12 +1,22 @@
-import type { Booking, BookedRange, BookingStatus } from "@/lib/types";
+import type { Booking, BookedRange } from "@/lib/types";
 
 /**
  * Helper di accesso al database Cloudflare D1.
  * Tutte le funzioni ricevono l'istanza D1 per restare testabili e disaccoppiate.
  */
 
-/** Stati che occupano effettivamente le date (bloccano nuove prenotazioni). */
-const BLOCKING_STATUSES: BookingStatus[] = ["pending", "confirmed"];
+/**
+ * Le prenotazioni `pending` bloccano le date solo per questa finestra di tempo
+ * (il tempo concesso per completare il pagamento). Trascorsa, vengono ignorate:
+ * auto-scadenza "lazy", senza bisogno di un cron job.
+ */
+const HOLD_MINUTES = 60;
+
+/** Clausola SQL riusabile: prenotazioni che occupano effettivamente le date. */
+const ACTIVE_CLAUSE = `(
+  status = 'confirmed'
+  OR (status = 'pending' AND created_at > datetime('now', '-${HOLD_MINUTES} minutes'))
+)`;
 
 /** Ritorna gli intervalli occupati per un appartamento (per il calendario). */
 export async function getBookedRanges(
@@ -18,7 +28,7 @@ export async function getBookedRanges(
       `SELECT check_in AS "from", check_out AS "to"
          FROM bookings
         WHERE apartment_id = ?1
-          AND status IN ('pending', 'confirmed')`
+          AND ${ACTIVE_CLAUSE}`
     )
     .bind(apartmentId)
     .all<BookedRange>();
@@ -40,7 +50,7 @@ export async function hasOverlap(
       `SELECT COUNT(*) AS n
          FROM bookings
         WHERE apartment_id = ?1
-          AND status IN ('pending', 'confirmed')
+          AND ${ACTIVE_CLAUSE}
           AND check_in < ?3
           AND check_out > ?2`
     )
@@ -52,10 +62,7 @@ export async function hasOverlap(
 /** Inserisce una prenotazione in stato "pending" (in attesa del pagamento). */
 export async function createPendingBooking(
   db: D1Database,
-  booking: Omit<
-    Booking,
-    "status" | "stripe_payment_intent" | "created_at"
-  > & { status?: BookingStatus }
+  booking: Omit<Booking, "status" | "stripe_payment_intent" | "created_at">
 ): Promise<void> {
   await db
     .prepare(
@@ -95,6 +102,25 @@ export async function confirmBookingBySession(
     )
     .bind(sessionId, paymentIntent)
     .run();
+}
+
+/** Recupera una prenotazione dalla sessione Stripe (per email di conferma). */
+export async function getBookingBySession(
+  db: D1Database,
+  sessionId: string
+): Promise<Booking | null> {
+  return db
+    .prepare(`SELECT * FROM bookings WHERE stripe_session_id = ?1`)
+    .bind(sessionId)
+    .first<Booking>();
+}
+
+/** Elenco prenotazioni per l'area amministrativa (più recenti prima). */
+export async function listBookings(db: D1Database): Promise<Booking[]> {
+  const { results } = await db
+    .prepare(`SELECT * FROM bookings ORDER BY created_at DESC LIMIT 500`)
+    .all<Booking>();
+  return results ?? [];
 }
 
 /** Annulla una prenotazione pending (sessione scaduta o pagamento fallito). */

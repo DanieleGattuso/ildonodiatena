@@ -28,4 +28,8 @@ export interface CloudflareEnv {
   DB: D1Database;
   STRIPE_SECRET_KEY: string;
   STRIPE_WEBHOOK_SECRET: string;
+  /** Opzionali: se assenti, le rispettive funzioni si disattivano in sicurezza. */
+  RESEND_API_KEY?: string;
+  EMAIL_FROM?: string;
+  ADMIN_TOKEN?: string;
 }

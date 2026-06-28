@@ -2,7 +2,12 @@ import { NextRequest, NextResponse } from "next/server";
 import type Stripe from "stripe";
 import { getEnv } from "@/lib/env";
 import { getStripe } from "@/lib/stripe";
-import { confirmBookingBySession, cancelBookingBySession } from "@/lib/db";
+import {
+  confirmBookingBySession,
+  cancelBookingBySession,
+  getBookingBySession,
+} from "@/lib/db";
+import { sendBookingConfirmation } from "@/lib/email";
 
 export const runtime = "edge";
 
@@ -11,7 +16,8 @@ export const runtime = "edge";
  * Verifica la firma con STRIPE_WEBHOOK_SECRET (constructEventAsync per il runtime edge).
  */
 export async function POST(request: NextRequest) {
-  const { DB, STRIPE_SECRET_KEY, STRIPE_WEBHOOK_SECRET } = getEnv();
+  const env = getEnv();
+  const { DB, STRIPE_SECRET_KEY, STRIPE_WEBHOOK_SECRET } = env;
   const stripe = getStripe(STRIPE_SECRET_KEY);
 
   const signature = request.headers.get("stripe-signature");
@@ -42,6 +48,9 @@ export async function POST(request: NextRequest) {
             ? session.payment_intent
             : (session.payment_intent?.id ?? null);
         await confirmBookingBySession(DB, session.id, paymentIntent);
+        // Email di conferma (no-op se Resend non è configurato).
+        const booking = await getBookingBySession(DB, session.id);
+        if (booking) await sendBookingConfirmation(env, booking);
         break;
       }
       case "checkout.session.expired": {
