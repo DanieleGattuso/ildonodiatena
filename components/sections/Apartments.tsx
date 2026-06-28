@@ -1,10 +1,10 @@
-import Image from "next/image";
 import { Check } from "lucide-react";
 import { apartments, type Apartment } from "@/lib/data";
 import { cn } from "@/lib/utils";
 import Container from "@/components/ui/Container";
 import SectionHeading from "@/components/ui/SectionHeading";
 import Button from "@/components/ui/Button";
+import Gallery from "@/components/ui/Gallery";
 
 /**
  * Gli Appartamenti — layout a sezioni alternate (immagine/testo).
@@ -46,21 +46,12 @@ function ApartmentRow({
       id={apartment.id}
       className="grid items-center gap-10 lg:grid-cols-2 lg:gap-16"
     >
-      {/* Immagine */}
-      <div
-        className={cn(
-          "group relative aspect-[4/3] overflow-hidden rounded-2xl shadow-xl shadow-olive-900/10",
-          reverse && "lg:order-last"
-        )}
-      >
-        <Image
-          src={apartment.image}
-          alt={apartment.imageAlt}
-          fill
-          sizes="(max-width: 1024px) 100vw, 50vw"
-          className="object-cover transition-transform duration-700 group-hover:scale-105"
-        />
-      </div>
+      {/* Galleria foto */}
+      <Gallery
+        images={apartment.gallery}
+        alt={apartment.imageAlt}
+        reverse={reverse}
+      />
 
       {/* Testo */}
       <div className={cn(reverse && "lg:order-first")}>

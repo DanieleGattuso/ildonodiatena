@@ -14,6 +14,8 @@ export type Apartment = {
   maxGuests: number;
   image: string;
   imageAlt: string;
+  /** Galleria foto (oltre all'immagine di copertina). */
+  gallery: string[];
 };
 
 export const apartments: Apartment[] = [
@@ -34,6 +36,12 @@ export const apartments: Apartment[] = [
     image: "/images/apartments/atena.jpg",
     imageAlt:
       "Interni luminosi dell'appartamento Atena con veranda affacciata sulla piscina",
+    gallery: [
+      "/images/apartments/atena.jpg",
+      "/images/apartments/atena-1.jpg",
+      "/images/apartments/atena-2.jpg",
+      "/images/apartments/atena-3.jpg",
+    ],
   },
   {
     id: "era",
@@ -52,6 +60,12 @@ export const apartments: Apartment[] = [
     image: "/images/apartments/era.jpg",
     imageAlt:
       "Spazio esterno dell'appartamento Era immerso tra ulivi e agrumeti",
+    gallery: [
+      "/images/apartments/era.jpg",
+      "/images/apartments/era-1.jpg",
+      "/images/apartments/era-2.jpg",
+      "/images/apartments/era-3.jpg",
+    ],
   },
 ];
 
