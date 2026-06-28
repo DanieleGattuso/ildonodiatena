@@ -22,30 +22,12 @@ export const metadata: Metadata = {
     template: "%s | Il dono di Atena",
   },
   description:
-    "Il dono di Atena: la tua oasi di relax a Cefalù. Villa con piscina, due appartamenti indipendenti immersi in una tenuta biologica di ulivi e agrumi, a 4 km dal centro storico.",
-  keywords: [
-    "villa Cefalù",
-    "casa vacanze Cefalù",
-    "villa con piscina Sicilia",
-    "Il dono di Atena",
-    "appartamenti Cefalù",
-  ],
-  openGraph: {
-    title: "Il dono di Atena | Villa con piscina a Cefalù",
-    description:
-      "La tua oasi di relax a Cefalù: villa con piscina, due appartamenti indipendenti in una tenuta biologica di ulivi e agrumi.",
-    locale: "it_IT",
-    type: "website",
-    url: "https://www.ildonodiatena.it",
-    siteName: "Il dono di Atena",
-  },
+    "Il dono di Atena: la tua oasi di relax a Cefalù. Villa con piscina, due appartamenti indipendenti immersi in una tenuta biologica di ulivi e agrumi.",
 };
 
 export default function RootLayout({
   children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+}: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="it" className={`${cormorant.variable} ${inter.variable}`}>
       <body>{children}</body>

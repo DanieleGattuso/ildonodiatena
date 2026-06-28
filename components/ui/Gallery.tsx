@@ -8,6 +8,8 @@ import { cn } from "@/lib/utils";
 type GalleryProps = {
   images: string[];
   alt: string;
+  /** Etichetta localizzata per il badge "N foto". */
+  photosLabel: string;
   /** Inverte l'ordine cover/thumb per i layout alternati (estetica). */
   reverse?: boolean;
 };
@@ -16,7 +18,12 @@ type GalleryProps = {
  * Galleria con immagine di copertina + miniature e lightbox a schermo intero
  * (navigazione con frecce, tastiera e chiusura con ESC/overlay).
  */
-export default function Gallery({ images, alt, reverse }: GalleryProps) {
+export default function Gallery({
+  images,
+  alt,
+  photosLabel,
+  reverse,
+}: GalleryProps) {
   const [open, setOpen] = useState(false);
   const [index, setIndex] = useState(0);
   const cover = images[0];
@@ -70,7 +77,7 @@ export default function Gallery({ images, alt, reverse }: GalleryProps) {
         />
         <span className="absolute bottom-3 right-3 flex items-center gap-1.5 rounded-full bg-olive-900/70 px-3 py-1.5 text-xs font-medium text-cream backdrop-blur-sm">
           <Expand className="h-3.5 w-3.5" />
-          {images.length} foto
+          {images.length} {photosLabel}
         </span>
       </button>
 

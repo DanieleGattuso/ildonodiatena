@@ -14,6 +14,7 @@ type CheckoutBody = {
   guests?: number;
   name?: string;
   email?: string;
+  lang?: string;
 };
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -27,7 +28,8 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: "Richiesta non valida." }, { status: 400 });
   }
 
-  const { apartmentId, checkIn, checkOut, guests, name, email } = body;
+  const { apartmentId, checkIn, checkOut, guests, name, email, lang } = body;
+  const locale = lang === "en" ? "en" : "it";
 
   // --- Validazione input ---
   const apartment = apartmentId ? getApartment(apartmentId) : undefined;
@@ -101,8 +103,8 @@ export async function POST(request: NextRequest) {
         checkIn,
         checkOut,
       },
-      success_url: `${origin}/prenotazione/successo?session_id={CHECKOUT_SESSION_ID}`,
-      cancel_url: `${origin}/prenotazione/annullata`,
+      success_url: `${origin}/${locale}/prenotazione/successo?session_id={CHECKOUT_SESSION_ID}`,
+      cancel_url: `${origin}/${locale}/prenotazione/annullata`,
     });
 
     // --- Prenotazione pending (blocca le date durante il pagamento) ---

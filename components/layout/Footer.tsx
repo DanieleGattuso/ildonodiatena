@@ -1,37 +1,40 @@
 import Link from "next/link";
 import { MapPin, Phone, Mail } from "lucide-react";
-import { contact, navLinks } from "@/lib/data";
+import { contact } from "@/lib/data";
+import type { Locale } from "@/lib/i18n/config";
+import type { Dictionary } from "@/lib/i18n/dictionaries";
 import Container from "@/components/ui/Container";
 
+type FooterProps = {
+  lang: Locale;
+  dict: Dictionary["footer"];
+  navLinks: Dictionary["nav"]["links"];
+};
+
 /** Footer con contatti, navigazione e link alle policy. */
-export default function Footer() {
+export default function Footer({ lang, dict, navLinks }: FooterProps) {
   const year = new Date().getFullYear();
 
   return (
     <footer className="bg-olive-900 text-cream/80">
       <Container className="py-16">
         <div className="grid gap-10 md:grid-cols-3">
-          {/* Brand */}
           <div>
             <h3 className="font-serif text-2xl font-semibold text-cream">
               Il dono di Atena
             </h3>
-            <p className="mt-3 max-w-xs text-sm leading-relaxed">
-              La tua oasi di relax a Cefalù: villa con piscina immersa in una
-              tenuta biologica di ulivi e agrumi.
-            </p>
+            <p className="mt-3 max-w-xs text-sm leading-relaxed">{dict.tagline}</p>
           </div>
 
-          {/* Navigazione */}
           <div>
             <h4 className="text-sm font-semibold uppercase tracking-widest text-cream">
-              Esplora
+              {dict.explore}
             </h4>
             <ul className="mt-4 space-y-2 text-sm">
               {navLinks.map((link) => (
                 <li key={link.href}>
                   <Link
-                    href={link.href}
+                    href={`/${lang}${link.href}`}
                     className="transition-colors hover:text-terracotta-200"
                   >
                     {link.label}
@@ -41,10 +44,9 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Contatti */}
           <div>
             <h4 className="text-sm font-semibold uppercase tracking-widest text-cream">
-              Contatti
+              {dict.contacts}
             </h4>
             <ul className="mt-4 space-y-3 text-sm">
               <li className="flex items-start gap-3">
@@ -74,19 +76,19 @@ export default function Footer() {
         </div>
 
         <div className="mt-12 flex flex-col items-center justify-between gap-4 border-t border-cream/10 pt-8 text-sm sm:flex-row">
-          <p>© {year} Il dono di Atena. Tutti i diritti riservati.</p>
+          <p>© {year} Il dono di Atena. {dict.rights}</p>
           <div className="flex gap-6">
             <Link
-              href="/privacy-policy"
+              href={`/${lang}/privacy-policy`}
               className="transition-colors hover:text-terracotta-200"
             >
-              Privacy Policy
+              {dict.privacy}
             </Link>
             <Link
-              href="/cookie-policy"
+              href={`/${lang}/cookie-policy`}
               className="transition-colors hover:text-terracotta-200"
             >
-              Cookie Policy
+              {dict.cookie}
             </Link>
           </div>
         </div>

@@ -7,11 +7,10 @@ import {
   Trees,
   type LucideIcon,
 } from "lucide-react";
-import { features } from "@/lib/data";
+import type { Dictionary } from "@/lib/i18n/dictionaries";
 import Container from "@/components/ui/Container";
 import SectionHeading from "@/components/ui/SectionHeading";
 
-/** Mappa esplicita nome→componente: evita import dinamici e mantiene il tree-shaking. */
 const iconMap: Record<string, LucideIcon> = {
   Waves,
   Leaf,
@@ -22,18 +21,18 @@ const iconMap: Record<string, LucideIcon> = {
 };
 
 /** 2. La Struttura — griglia di servizi con icone. */
-export default function Features() {
+export default function Features({ dict }: { dict: Dictionary["features"] }) {
   return (
     <section id="struttura" className="bg-sand-50 py-24 md:py-32">
       <Container>
         <SectionHeading
-          eyebrow="La struttura"
-          title="Tutto il comfort, nel rispetto della natura"
-          description="Una struttura moderna e sostenibile, pensata per offrirti il massimo del relax con un occhio di riguardo all'ambiente."
+          eyebrow={dict.eyebrow}
+          title={dict.title}
+          description={dict.description}
         />
 
         <div className="mt-16 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {features.map((feature) => {
+          {dict.items.map((feature) => {
             const Icon = iconMap[feature.icon];
             return (
               <div

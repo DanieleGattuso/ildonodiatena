@@ -2,25 +2,31 @@
 
 import { useEffect, useMemo, useState } from "react";
 import { DayPicker, type DateRange, type Matcher } from "react-day-picker";
-import { it } from "date-fns/locale";
+import { it as itLocale, enUS } from "date-fns/locale";
 import { Loader2, CalendarDays, Users, AlertCircle } from "lucide-react";
 import "react-day-picker/style.css";
 
 import { apartments } from "@/lib/data";
 import type { BookedRange } from "@/lib/types";
+import type { Locale } from "@/lib/i18n/config";
+import type { Dictionary } from "@/lib/i18n/dictionaries";
 import { nightsBetween, toDateString, formatEuro } from "@/lib/booking";
 import { cn } from "@/lib/utils";
 import Container from "@/components/ui/Container";
 import SectionHeading from "@/components/ui/SectionHeading";
 
-/** Converte "YYYY-MM-DD" in Date in orario locale (no shift timezone). */
+type BookingProps = {
+  lang: Locale;
+  dict: Dictionary["booking"];
+};
+
 function parseDate(s: string): Date {
   const [y, m, d] = s.split("-").map(Number);
   return new Date(y, m - 1, d);
 }
 
 /** 6. Prenota — calendario disponibilità + dati ospite + checkout Stripe. */
-export default function Booking() {
+export default function Booking({ lang, dict }: BookingProps) {
   const [apartmentId, setApartmentId] = useState(apartments[0].id);
   const [range, setRange] = useState<DateRange | undefined>();
   const [guests, setGuests] = useState(2);
@@ -33,7 +39,6 @@ export default function Booking() {
 
   const apartment = apartments.find((a) => a.id === apartmentId)!;
 
-  // Carica le date occupate quando cambia l'appartamento.
   useEffect(() => {
     let active = true;
     setRange(undefined);
@@ -48,12 +53,11 @@ export default function Booking() {
     };
   }, [apartmentId]);
 
-  // Date da disabilitare: passato + intervalli occupati (notti = [check-in, check-out)).
   const disabledDays: Matcher[] = useMemo(() => {
     const matchers: Matcher[] = [{ before: new Date() }];
     for (const b of bookedRanges) {
       const to = parseDate(b.to);
-      to.setDate(to.getDate() - 1); // il giorno di check-out resta prenotabile
+      to.setDate(to.getDate() - 1);
       matchers.push({ from: parseDate(b.from), to });
     }
     return matchers;
@@ -87,15 +91,14 @@ export default function Booking() {
           guests,
           name,
           email,
+          lang,
         }),
       });
       const data = (await res.json()) as { url?: string; error?: string };
-      if (!res.ok || !data.url) {
-        throw new Error(data.error ?? "Errore imprevisto.");
-      }
-      window.location.href = data.url; // redirect a Stripe Checkout
+      if (!res.ok || !data.url) throw new Error(data.error ?? dict.errorGeneric);
+      window.location.href = data.url;
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Errore imprevisto.");
+      setError(err instanceof Error ? err.message : dict.errorGeneric);
       setLoading(false);
     }
   }
@@ -104,16 +107,15 @@ export default function Booking() {
     <section id="prenota" className="bg-sand-50 py-24 md:py-32">
       <Container>
         <SectionHeading
-          eyebrow="Prenota ora"
-          title="Verifica disponibilità e prenota"
-          description="Scegli l'appartamento, seleziona le date sul calendario e completa la prenotazione in pochi passi con pagamento sicuro."
+          eyebrow={dict.eyebrow}
+          title={dict.title}
+          description={dict.description}
         />
 
         <div className="mx-auto mt-14 grid max-w-5xl gap-8 rounded-3xl border border-olive-100 bg-cream p-6 shadow-xl shadow-olive-900/5 md:p-10 lg:grid-cols-2">
-          {/* Calendario + selezione appartamento */}
           <div>
             <label className="mb-2 block text-sm font-medium uppercase tracking-wider text-olive-700">
-              Appartamento
+              {dict.apartment}
             </label>
             <div className="mb-6 grid grid-cols-2 gap-3">
               {apartments.map((a) => (
@@ -132,7 +134,7 @@ export default function Booking() {
                     {a.name}
                   </span>
                   <span className="text-sm text-olive-600">
-                    {formatEuro(a.pricePerNight)} / notte
+                    {formatEuro(a.pricePerNight)} {dict.perNight}
                   </span>
                 </button>
               ))}
@@ -144,7 +146,7 @@ export default function Booking() {
                 selected={range}
                 onSelect={setRange}
                 disabled={disabledDays}
-                locale={it}
+                locale={lang === "it" ? itLocale : enUS}
                 numberOfMonths={1}
                 weekStartsOn={1}
                 className="mx-auto w-fit text-olive-900 [--rdp-accent-color:theme(colors.terracotta.500)] [--rdp-accent-background-color:theme(colors.terracotta.50)]"
@@ -152,15 +154,11 @@ export default function Booking() {
             </div>
           </div>
 
-          {/* Form dati + riepilogo */}
           <form onSubmit={handleSubmit} className="flex flex-col">
             <div className="space-y-5">
               <div>
-                <label
-                  htmlFor="name"
-                  className="mb-1.5 block text-sm font-medium text-olive-700"
-                >
-                  Nome e cognome
+                <label htmlFor="name" className="mb-1.5 block text-sm font-medium text-olive-700">
+                  {dict.name}
                 </label>
                 <input
                   id="name"
@@ -169,16 +167,13 @@ export default function Booking() {
                   onChange={(e) => setName(e.target.value)}
                   required
                   className="w-full rounded-xl border border-olive-200 px-4 py-3 text-olive-900 outline-none transition focus:border-terracotta-400 focus:ring-2 focus:ring-terracotta-100"
-                  placeholder="Mario Rossi"
+                  placeholder={dict.namePlaceholder}
                 />
               </div>
 
               <div>
-                <label
-                  htmlFor="email"
-                  className="mb-1.5 block text-sm font-medium text-olive-700"
-                >
-                  Email
+                <label htmlFor="email" className="mb-1.5 block text-sm font-medium text-olive-700">
+                  {dict.email}
                 </label>
                 <input
                   id="email"
@@ -187,16 +182,13 @@ export default function Booking() {
                   onChange={(e) => setEmail(e.target.value)}
                   required
                   className="w-full rounded-xl border border-olive-200 px-4 py-3 text-olive-900 outline-none transition focus:border-terracotta-400 focus:ring-2 focus:ring-terracotta-100"
-                  placeholder="mario@email.it"
+                  placeholder={dict.emailPlaceholder}
                 />
               </div>
 
               <div>
-                <label
-                  htmlFor="guests"
-                  className="mb-1.5 block text-sm font-medium text-olive-700"
-                >
-                  Ospiti
+                <label htmlFor="guests" className="mb-1.5 block text-sm font-medium text-olive-700">
+                  {dict.guests}
                 </label>
                 <div className="relative">
                   <Users className="pointer-events-none absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 text-olive-400" />
@@ -206,33 +198,30 @@ export default function Booking() {
                     onChange={(e) => setGuests(Number(e.target.value))}
                     className="w-full appearance-none rounded-xl border border-olive-200 py-3 pl-11 pr-4 text-olive-900 outline-none transition focus:border-terracotta-400 focus:ring-2 focus:ring-terracotta-100"
                   >
-                    {Array.from({ length: apartment.maxGuests }, (_, i) => i + 1).map(
-                      (n) => (
-                        <option key={n} value={n}>
-                          {n} {n === 1 ? "ospite" : "ospiti"}
-                        </option>
-                      )
-                    )}
+                    {Array.from({ length: apartment.maxGuests }, (_, i) => i + 1).map((n) => (
+                      <option key={n} value={n}>
+                        {n} {n === 1 ? dict.guest : dict.guestsPlural}
+                      </option>
+                    ))}
                   </select>
                 </div>
               </div>
             </div>
 
-            {/* Riepilogo */}
             <div className="mt-6 rounded-xl bg-olive-50 p-5">
               <div className="flex items-center gap-2 text-sm text-olive-600">
                 <CalendarDays className="h-4 w-4" />
                 {nights > 0 ? (
                   <span>
                     {checkIn} → {checkOut} · {nights}{" "}
-                    {nights === 1 ? "notte" : "notti"}
+                    {nights === 1 ? dict.night : dict.nightsPlural}
                   </span>
                 ) : (
-                  <span>Seleziona le date sul calendario</span>
+                  <span>{dict.selectDates}</span>
                 )}
               </div>
               <div className="mt-3 flex items-end justify-between">
-                <span className="text-sm text-olive-600">Totale</span>
+                <span className="text-sm text-olive-600">{dict.total}</span>
                 <span className="font-serif text-3xl font-semibold text-olive-900">
                   {formatEuro(total)}
                 </span>
@@ -254,16 +243,13 @@ export default function Booking() {
               {loading ? (
                 <>
                   <Loader2 className="h-5 w-5 animate-spin" />
-                  Reindirizzamento…
+                  {dict.redirecting}
                 </>
               ) : (
-                "Procedi al pagamento"
+                dict.submit
               )}
             </button>
-            <p className="mt-3 text-center text-xs text-olive-500">
-              Pagamento sicuro tramite Stripe. Nessun dato della carta transita
-              dai nostri server.
-            </p>
+            <p className="mt-3 text-center text-xs text-olive-500">{dict.secure}</p>
           </form>
         </div>
       </Container>
