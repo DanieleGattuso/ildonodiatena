@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Lock, RefreshCw, LogOut } from "lucide-react";
+import { Lock, RefreshCw, LogOut, Check, X, Undo2 } from "lucide-react";
 import type { Booking } from "@/lib/types";
 import { formatEuro } from "@/lib/booking";
 import { cn } from "@/lib/utils";
@@ -46,6 +46,30 @@ export default function AdminPage() {
       setAuthed(false);
     } finally {
       setLoading(false);
+    }
+  }
+
+  const [busyId, setBusyId] = useState<string | null>(null);
+
+  async function act(id: string, action: "confirm" | "cancel" | "refund") {
+    if (action === "refund" && !confirm("Confermi il rimborso su Stripe? L'operazione non è reversibile.")) {
+      return;
+    }
+    setBusyId(id);
+    setError(null);
+    try {
+      const res = await fetch(`/api/admin/bookings/${id}`, {
+        method: "PATCH",
+        headers: { "x-admin-token": token, "Content-Type": "application/json" },
+        body: JSON.stringify({ action }),
+      });
+      const data = (await res.json()) as { error?: string };
+      if (!res.ok) throw new Error(data.error ?? "Errore.");
+      await load(token);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Errore.");
+    } finally {
+      setBusyId(null);
     }
   }
 
@@ -131,12 +155,13 @@ export default function AdminPage() {
                 <th className="px-4 py-3">Notti</th>
                 <th className="px-4 py-3">Totale</th>
                 <th className="px-4 py-3">Stato</th>
+                <th className="px-4 py-3 text-right">Azioni</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-olive-50">
               {bookings.length === 0 ? (
                 <tr>
-                  <td colSpan={7} className="px-4 py-10 text-center text-olive-500">
+                  <td colSpan={8} className="px-4 py-10 text-center text-olive-500">
                     Nessuna prenotazione.
                   </td>
                 </tr>
@@ -161,6 +186,41 @@ export default function AdminPage() {
                       >
                         {b.status}
                       </span>
+                    </td>
+                    <td className="px-4 py-3">
+                      <div className="flex items-center justify-end gap-1">
+                        {b.status !== "confirmed" && (
+                          <button
+                            title="Conferma"
+                            disabled={busyId === b.id}
+                            onClick={() => void act(b.id, "confirm")}
+                            className="rounded-lg p-2 text-olive-600 hover:bg-olive-50 disabled:opacity-40"
+                          >
+                            <Check className="h-4 w-4" />
+                          </button>
+                        )}
+                        {b.status !== "cancelled" && !b.stripe_payment_intent && (
+                          <button
+                            title="Annulla"
+                            disabled={busyId === b.id}
+                            onClick={() => void act(b.id, "cancel")}
+                            className="rounded-lg p-2 text-terracotta-600 hover:bg-terracotta-50 disabled:opacity-40"
+                          >
+                            <X className="h-4 w-4" />
+                          </button>
+                        )}
+                        {b.status === "confirmed" && b.stripe_payment_intent && (
+                          <button
+                            title="Rimborsa e annulla"
+                            disabled={busyId === b.id}
+                            onClick={() => void act(b.id, "refund")}
+                            className="inline-flex items-center gap-1 rounded-lg px-2.5 py-2 text-xs font-medium text-red-600 hover:bg-red-50 disabled:opacity-40"
+                          >
+                            <Undo2 className="h-4 w-4" />
+                            Rimborsa
+                          </button>
+                        )}
+                      </div>
                     </td>
                   </tr>
                 ))

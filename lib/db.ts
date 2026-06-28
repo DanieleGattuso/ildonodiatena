@@ -1,4 +1,4 @@
-import type { Booking, BookedRange } from "@/lib/types";
+import type { Booking, BookedRange, BookingStatus } from "@/lib/types";
 
 /**
  * Helper di accesso al database Cloudflare D1.
@@ -136,6 +136,29 @@ export async function cancelBookingBySession(
           AND status = 'pending'`
     )
     .bind(sessionId)
+    .run();
+}
+
+/** Recupera una prenotazione dal suo id. */
+export async function getBookingById(
+  db: D1Database,
+  id: string
+): Promise<Booking | null> {
+  return db
+    .prepare(`SELECT * FROM bookings WHERE id = ?1`)
+    .bind(id)
+    .first<Booking>();
+}
+
+/** Aggiorna lo stato di una prenotazione (azioni admin). */
+export async function updateBookingStatus(
+  db: D1Database,
+  id: string,
+  status: BookingStatus
+): Promise<void> {
+  await db
+    .prepare(`UPDATE bookings SET status = ?2 WHERE id = ?1`)
+    .bind(id, status)
     .run();
 }
 
