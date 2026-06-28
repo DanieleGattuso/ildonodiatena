@@ -12,32 +12,56 @@ di prenotazione, calendario disponibilità e pagamento online via Stripe.
 - **Cloudflare Pages** — hosting (via `@cloudflare/next-on-pages`)
 - **Cloudflare D1** — database prenotazioni (SQLite all'edge)
 - **Stripe Checkout** — pagamento online (hosted)
+- **i18n IT/EN** — routing `[lang]` + middleware + dizionari tipizzati
 - **TypeScript**
+
+## Deploy
+
+Vedi **[DEPLOY.md](./DEPLOY.md)** per la guida passo-passo (Cloudflare Pages,
+D1, Stripe, dominio). Il deploy è automatizzato via GitHub Actions
+(`.github/workflows/deploy.yml`).
+
+## Funzionalità principali
+
+- Sito vetrina responsive con galleria foto + lightbox per ogni appartamento
+- Multilingua **Italiano / Inglese** con selettore lingua
+- Prenotazione con calendario disponibilità e **pagamento Stripe**
+- Auto-scadenza prenotazioni non pagate (60 min)
+- Email di conferma (Resend, opzionale)
+- Area **admin** (`/admin`) con conferma / annulla / **rimborso** Stripe
 
 ## Struttura
 
 ```
 app/
-  layout.tsx                 Layout, font, metadata SEO
-  page.tsx                   Homepage (assembla le sezioni)
-  (legal)/                   Privacy & Cookie policy
-  prenotazione/              Pagine esito pagamento (successo/annullata)
+  layout.tsx                 Root layout (html/body, font)
+  [lang]/                    Pagine localizzate (it/en)
+    layout.tsx               generateStaticParams + metadata per lingua
+    page.tsx                 Homepage (assembla le sezioni)
+    (legal)/                 Privacy & Cookie policy (bilingui)
+    prenotazione/            Pagine esito pagamento (successo/annullata)
+  admin/                     Area admin (gestione prenotazioni)
   api/
     availability/route.ts    GET disponibilità (edge)
     checkout/route.ts        POST crea sessione Stripe + booking pending (edge)
-    webhooks/stripe/route.ts POST conferma prenotazione (edge)
+    webhooks/stripe/route.ts POST conferma prenotazione + email (edge)
+    admin/bookings/          GET lista + PATCH azioni (conferma/annulla/rimborso)
+middleware.ts                Redirect e rilevamento lingua
 components/
-  layout/                    Navbar, Footer
+  layout/                    Navbar (+ selettore lingua), Footer, LangSync
   sections/                  Hero, Features, Apartments, Experience, Booking, Location
-  ui/                        Button, Container, SectionHeading
+  ui/                        Button, Container, SectionHeading, Gallery
 lib/
-  data.ts                    Contenuti, appartamenti, prezzi
+  data.ts                    Dati neutri: appartamenti, prezzi, immagini, contatti
+  i18n/                      config, dizionari it/en, getDictionary
   db.ts                      Query Cloudflare D1
   stripe.ts                  Client Stripe (fetch HTTP, edge-compatible)
+  email.ts                   Email di conferma (Resend)
   booking.ts                 Logica date/notti/prezzi
   env.ts / types.ts          Binding Cloudflare e tipi
 db/schema.sql                Schema D1
 wrangler.toml                Config Cloudflare (binding D1)
+.github/workflows/           CI + deploy Cloudflare Pages
 ```
 
 ## Flusso di prenotazione
