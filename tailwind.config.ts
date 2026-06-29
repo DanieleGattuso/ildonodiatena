@@ -62,11 +62,16 @@ const config: Config = {
           "0%": { transform: "scale(1)" },
           "100%": { transform: "scale(1.08)" },
         },
+        "scroll-hint": {
+          "0%, 100%": { transform: "translateY(0)", opacity: "0.6" },
+          "50%": { transform: "translateY(6px)", opacity: "1" },
+        },
       },
       animation: {
         "fade-up": "fade-up 0.8s ease-out forwards",
         "fade-in": "fade-in 1.2s ease-out forwards",
         "subtle-zoom": "subtle-zoom 20s ease-out forwards",
+        "scroll-hint": "scroll-hint 2.4s ease-in-out infinite",
       },
     },
   },

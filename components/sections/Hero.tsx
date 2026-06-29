@@ -63,7 +63,7 @@ export default function Hero({ dict }: HeroProps) {
         aria-label={dict.scroll}
         className="absolute bottom-8 left-1/2 z-10 -translate-x-1/2 text-cream/80 transition-colors hover:text-cream"
       >
-        <ChevronDown className="h-8 w-8 animate-bounce" />
+        <ChevronDown className="h-8 w-8 animate-scroll-hint" />
       </a>
     </section>
   );
