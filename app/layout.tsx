@@ -23,6 +23,7 @@ export const metadata: Metadata = {
   },
   description:
     "Il dono di Atena: la tua oasi di relax a Cefalù. Villa con piscina, due appartamenti indipendenti immersi in una tenuta biologica di ulivi e agrumi.",
+  icons: { icon: "/icon.svg" },
 };
 
 export default function RootLayout({

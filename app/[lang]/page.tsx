@@ -11,6 +11,7 @@ import Apartments from "@/components/sections/Apartments";
 import Experience from "@/components/sections/Experience";
 import Booking from "@/components/sections/Booking";
 import Location from "@/components/sections/Location";
+import CookieConsent from "@/components/ui/CookieConsent";
 
 export default async function Home({
   params,
@@ -33,6 +34,7 @@ export default async function Home({
         <Location dict={dict.location} />
       </main>
       <Footer lang={lang} dict={dict.footer} navLinks={dict.nav.links} />
+      <CookieConsent lang={lang} dict={dict.cookieBanner} />
     </>
   );
 }

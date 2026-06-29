@@ -3,6 +3,7 @@ import { contact } from "@/lib/data";
 import type { Dictionary } from "@/lib/i18n/dictionaries";
 import Container from "@/components/ui/Container";
 import SectionHeading from "@/components/ui/SectionHeading";
+import MapEmbed from "@/components/sections/MapEmbed";
 
 const iconMap: Record<string, LucideIcon> = { Car, Building2, Plane };
 
@@ -47,13 +48,11 @@ export default function Location({ dict }: { dict: Dictionary["location"] }) {
           </div>
 
           <div className="overflow-hidden rounded-2xl shadow-xl shadow-olive-900/10">
-            <iframe
-              title={dict.mapTitle}
+            <MapEmbed
               src={`https://www.google.com/maps?q=${contact.mapsQuery}&output=embed`}
-              loading="lazy"
-              referrerPolicy="no-referrer-when-downgrade"
-              className="h-full min-h-[380px] w-full border-0"
-              allowFullScreen
+              title={dict.mapTitle}
+              notice={dict.mapNotice}
+              enableLabel={dict.enableMap}
             />
           </div>
         </div>

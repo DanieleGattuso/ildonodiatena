@@ -119,6 +119,9 @@ export const it = {
       { icon: "Plane", title: "Aeroporto di Palermo", text: "A circa un'ora di auto dall'aeroporto internazionale Falcone-Borsellino." },
     ],
     mapTitle: "Mappa di Il dono di Atena a Cefalù",
+    mapNotice:
+      "Per mostrare la mappa è necessario caricare contenuti di Google Maps, che può impostare cookie di terze parti.",
+    enableMap: "Carica la mappa",
   },
   footer: {
     tagline:
@@ -138,6 +141,12 @@ export const it = {
     title: "Pagamento annullato",
     text: "La prenotazione non è stata completata e non è stato addebitato alcun importo. Le date restano disponibili: puoi riprovare quando vuoi.",
     retry: "Riprova la prenotazione",
+  },
+  cookieBanner: {
+    text: "Usiamo cookie tecnici e, previo consenso, cookie di terze parti (Google Maps, Stripe) per migliorare la tua esperienza.",
+    accept: "Accetta",
+    reject: "Solo necessari",
+    more: "Cookie Policy",
   },
 };
 

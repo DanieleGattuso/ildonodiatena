@@ -121,6 +121,9 @@ export const en: Dictionary = {
       { icon: "Plane", title: "Palermo airport", text: "About an hour's drive from the Falcone-Borsellino international airport." },
     ],
     mapTitle: "Map of Il dono di Atena in Cefalù",
+    mapNotice:
+      "To show the map we need to load Google Maps content, which may set third-party cookies.",
+    enableMap: "Load the map",
   },
   footer: {
     tagline:
@@ -140,5 +143,11 @@ export const en: Dictionary = {
     title: "Payment cancelled",
     text: "The booking was not completed and no amount was charged. The dates are still available: you can try again whenever you like.",
     retry: "Try booking again",
+  },
+  cookieBanner: {
+    text: "We use technical cookies and, with your consent, third-party cookies (Google Maps, Stripe) to improve your experience.",
+    accept: "Accept",
+    reject: "Necessary only",
+    more: "Cookie Policy",
   },
 };
