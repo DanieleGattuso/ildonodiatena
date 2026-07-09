@@ -54,6 +54,7 @@ export default function Experience({
               src="/images/territory/vista.webp"
               alt={dict.imageAlt}
               fill
+              quality={85}
               sizes="(max-width: 1024px) 100vw, 50vw"
               className="object-cover"
             />

@@ -51,7 +51,7 @@ export const apartments: Apartment[] = [
 ];
 
 /** Foto degli spazi comuni: piscina, giardino e zone pranzo all'aperto. */
-export const outdoorGallery: string[] = gallery("outdoor", "outdoor", 23);
+export const outdoorGallery: string[] = gallery("outdoor", "outdoor", 18);
 
 /** Lookup rapido per id (usato lato server in fase di checkout). */
 export function getApartment(id: string): Apartment | undefined {

@@ -24,6 +24,7 @@ export default function Hero({ dict }: HeroProps) {
         alt={dict.subtitle}
         fill
         priority
+        quality={90}
         sizes="100vw"
         className="object-cover animate-subtle-zoom"
       />

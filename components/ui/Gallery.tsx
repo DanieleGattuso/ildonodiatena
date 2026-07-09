@@ -72,6 +72,7 @@ export default function Gallery({
           src={cover}
           alt={alt}
           fill
+          quality={85}
           sizes="(max-width: 1024px) 100vw, 50vw"
           className="object-cover transition-transform duration-700 group-hover:scale-105"
         />
@@ -137,6 +138,7 @@ export default function Gallery({
               src={images[index]}
               alt={`${alt} — foto ${index + 1}`}
               fill
+              quality={90}
               sizes="100vw"
               className="object-contain"
               priority

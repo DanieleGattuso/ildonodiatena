@@ -80,6 +80,7 @@ export default function Outdoor({ dict }: { dict: Dictionary["outdoor"] }) {
                   src={src}
                   alt={`${dict.alt} — ${i + 1}`}
                   fill
+                  quality={featured ? 85 : 78}
                   sizes={
                     featured
                       ? "(max-width: 768px) 100vw, 50vw"
@@ -136,6 +137,7 @@ export default function Outdoor({ dict }: { dict: Dictionary["outdoor"] }) {
               src={images[index]}
               alt={`${dict.alt} — ${index + 1}`}
               fill
+              quality={90}
               sizes="100vw"
               className="object-contain"
               priority
