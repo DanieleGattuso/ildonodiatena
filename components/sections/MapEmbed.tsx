@@ -39,12 +39,12 @@ export default function MapEmbed({ src, title, notice, enableLabel }: Props) {
   }
 
   return (
-    <div className="flex h-full min-h-[380px] flex-col items-center justify-center gap-4 bg-ink-900 p-8 text-center">
-      <MapPin className="h-10 w-10 text-cream/30" />
-      <p className="max-w-sm text-sm leading-relaxed text-cream/60">{notice}</p>
+    <div className="flex h-full min-h-[380px] flex-col items-center justify-center gap-4 bg-surface-100 p-8 text-center">
+      <MapPin className="h-10 w-10 text-ink-400" />
+      <p className="max-w-sm text-sm leading-relaxed text-ink-700">{notice}</p>
       <button
         onClick={() => setConsent("accepted")}
-        className="bg-terracotta-500 px-6 py-2.5 text-xs font-medium uppercase tracking-[0.15em] text-cream transition-colors hover:bg-cream hover:text-ink-950"
+        className="bg-bordeaux-600 px-6 py-2.5 text-sm font-medium text-white transition-colors hover:bg-bordeaux-700"
       >
         {enableLabel}
       </button>

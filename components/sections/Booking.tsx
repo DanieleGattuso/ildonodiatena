@@ -104,17 +104,17 @@ export default function Booking({ lang, dict }: BookingProps) {
   }
 
   return (
-    <section id="prenota" className="bg-ink-950 py-24 md:py-32">
+    <section id="prenota" className="bg-bordeaux-700 py-24 md:py-32">
       <Container>
         <SectionHeading
-          eyebrow={dict.eyebrow}
           title={dict.title}
           description={dict.description}
+          onDark
         />
 
-        <div className="mx-auto mt-14 grid max-w-5xl gap-10 border border-ink-800 bg-ink-900 p-6 md:p-10 lg:grid-cols-2">
+        <div className="mx-auto mt-14 grid max-w-5xl gap-10 bg-surface-50 p-6 md:p-10 lg:grid-cols-2">
           <div>
-            <label className="mb-3 block text-xs font-medium uppercase tracking-[0.2em] text-cream/50">
+            <label className="mb-3 block text-sm font-medium text-ink-700">
               {dict.apartment}
             </label>
             <div className="mb-6 grid grid-cols-2 gap-3">
@@ -126,21 +126,21 @@ export default function Booking({ lang, dict }: BookingProps) {
                   className={cn(
                     "border px-4 py-3 text-left transition-colors",
                     a.id === apartmentId
-                      ? "border-terracotta-400 bg-terracotta-500/10"
-                      : "border-ink-800 hover:border-cream/30"
+                      ? "border-bordeaux-600 bg-bordeaux-50"
+                      : "border-surface-300 hover:border-ink-400"
                   )}
                 >
-                  <span className="block font-serif text-lg font-semibold text-cream">
+                  <span className="block font-serif text-lg text-ink-950">
                     {a.name}
                   </span>
-                  <span className="text-sm text-cream/55">
+                  <span className="text-sm text-ink-700">
                     {formatEuro(a.pricePerNight)} {dict.perNight}
                   </span>
                 </button>
               ))}
             </div>
 
-            <div className="border border-ink-800 bg-ink-950 p-2">
+            <div className="border border-surface-300 bg-white p-2">
               <DayPicker
                 mode="range"
                 selected={range}
@@ -149,7 +149,7 @@ export default function Booking({ lang, dict }: BookingProps) {
                 locale={lang === "it" ? itLocale : enUS}
                 numberOfMonths={1}
                 weekStartsOn={1}
-                className="mx-auto w-fit text-cream [--rdp-accent-color:theme(colors.terracotta.400)] [--rdp-accent-background-color:theme(colors.terracotta.500/0.18)]"
+                className="mx-auto w-fit text-ink-950"
               />
             </div>
           </div>
@@ -157,7 +157,7 @@ export default function Booking({ lang, dict }: BookingProps) {
           <form onSubmit={handleSubmit} className="flex flex-col">
             <div className="space-y-5">
               <div>
-                <label htmlFor="name" className="mb-1.5 block text-sm font-medium text-cream/70">
+                <label htmlFor="name" className="mb-1.5 block text-sm font-medium text-ink-700">
                   {dict.name}
                 </label>
                 <input
@@ -166,13 +166,13 @@ export default function Booking({ lang, dict }: BookingProps) {
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                   required
-                  className="w-full border border-ink-800 bg-ink-950 px-4 py-3 text-cream outline-none transition placeholder:text-cream/30 focus:border-terracotta-400"
+                  className="w-full border border-surface-300 bg-white px-4 py-3 text-ink-950 outline-none transition placeholder:text-ink-400 focus:border-bordeaux-600"
                   placeholder={dict.namePlaceholder}
                 />
               </div>
 
               <div>
-                <label htmlFor="email" className="mb-1.5 block text-sm font-medium text-cream/70">
+                <label htmlFor="email" className="mb-1.5 block text-sm font-medium text-ink-700">
                   {dict.email}
                 </label>
                 <input
@@ -181,22 +181,22 @@ export default function Booking({ lang, dict }: BookingProps) {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   required
-                  className="w-full border border-ink-800 bg-ink-950 px-4 py-3 text-cream outline-none transition placeholder:text-cream/30 focus:border-terracotta-400"
+                  className="w-full border border-surface-300 bg-white px-4 py-3 text-ink-950 outline-none transition placeholder:text-ink-400 focus:border-bordeaux-600"
                   placeholder={dict.emailPlaceholder}
                 />
               </div>
 
               <div>
-                <label htmlFor="guests" className="mb-1.5 block text-sm font-medium text-cream/70">
+                <label htmlFor="guests" className="mb-1.5 block text-sm font-medium text-ink-700">
                   {dict.guests}
                 </label>
                 <div className="relative">
-                  <Users className="pointer-events-none absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 text-cream/40" />
+                  <Users className="pointer-events-none absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 text-ink-400" />
                   <select
                     id="guests"
                     value={guests}
                     onChange={(e) => setGuests(Number(e.target.value))}
-                    className="w-full appearance-none border border-ink-800 bg-ink-950 py-3 pl-11 pr-4 text-cream outline-none transition focus:border-terracotta-400"
+                    className="w-full appearance-none border border-surface-300 bg-white py-3 pl-11 pr-4 text-ink-950 outline-none transition focus:border-bordeaux-600"
                   >
                     {Array.from({ length: apartment.maxGuests }, (_, i) => i + 1).map((n) => (
                       <option key={n} value={n}>
@@ -208,8 +208,8 @@ export default function Booking({ lang, dict }: BookingProps) {
               </div>
             </div>
 
-            <div className="mt-6 border-t border-ink-800 pt-5">
-              <div className="flex items-center gap-2 text-sm text-cream/55">
+            <div className="mt-6 border-t border-surface-200 pt-5">
+              <div className="flex items-center gap-2 text-sm text-ink-700">
                 <CalendarDays className="h-4 w-4" />
                 {nights > 0 ? (
                   <span>
@@ -221,15 +221,15 @@ export default function Booking({ lang, dict }: BookingProps) {
                 )}
               </div>
               <div className="mt-3 flex items-end justify-between">
-                <span className="text-sm text-cream/55">{dict.total}</span>
-                <span className="font-serif text-3xl font-semibold text-cream">
+                <span className="text-sm text-ink-700">{dict.total}</span>
+                <span className="font-serif text-3xl text-ink-950">
                   {formatEuro(total)}
                 </span>
               </div>
             </div>
 
             {error && (
-              <p className="mt-4 flex items-center gap-2 text-sm text-red-400">
+              <p className="mt-4 flex items-center gap-2 text-sm text-red-700">
                 <AlertCircle className="h-4 w-4 flex-none" />
                 {error}
               </p>
@@ -238,7 +238,7 @@ export default function Booking({ lang, dict }: BookingProps) {
             <button
               type="submit"
               disabled={!canSubmit}
-              className="mt-6 inline-flex items-center justify-center gap-2 bg-terracotta-500 px-8 py-4 text-xs font-medium uppercase tracking-[0.2em] text-cream transition-colors hover:bg-cream hover:text-ink-950 disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:bg-terracotta-500 disabled:hover:text-cream"
+              className="mt-6 inline-flex items-center justify-center gap-2 bg-bordeaux-600 px-8 py-4 text-sm font-medium text-white transition-colors hover:bg-bordeaux-700 disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:bg-bordeaux-600"
             >
               {loading ? (
                 <>
@@ -249,7 +249,7 @@ export default function Booking({ lang, dict }: BookingProps) {
                 dict.submit
               )}
             </button>
-            <p className="mt-3 text-center text-xs text-cream/40">{dict.secure}</p>
+            <p className="mt-3 text-center text-xs text-ink-700">{dict.secure}</p>
           </form>
         </div>
       </Container>

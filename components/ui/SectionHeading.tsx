@@ -1,43 +1,41 @@
 import { cn } from "@/lib/utils";
 
 type SectionHeadingProps = {
-  eyebrow?: string;
   title: string;
   description?: string;
   align?: "left" | "center";
+  /** Su fondo bordeaux (sezioni immerse) il testo passa al bianco. */
+  onDark?: boolean;
 };
 
 /**
- * Apertura di sezione coerente su tutto il sito: una riga hairline porta
- * l'etichetta, il titolo enorme segue sotto. Sempre su fondo ink — un solo
- * sistema di testo (crema a opacità decrescente), niente varianti "invert".
+ * Apertura di sezione: titolo Marcellus e, se serve, un capoverso di
+ * accompagnamento. Nessuna etichetta sopra il titolo — il titolo basta.
  */
 export default function SectionHeading({
-  eyebrow,
   title,
   description,
   align = "left",
+  onDark = false,
 }: SectionHeadingProps) {
   return (
     <div className={cn("max-w-3xl", align === "center" && "mx-auto text-center")}>
-      {eyebrow && (
-        <div
-          className={cn(
-            "mb-6 flex items-center gap-4",
-            align === "center" && "justify-center"
-          )}
-        >
-          <span className="h-px w-10 flex-none bg-terracotta-400" />
-          <p className="text-xs font-medium uppercase tracking-[0.3em] text-cream/60">
-            {eyebrow}
-          </p>
-        </div>
-      )}
-      <h2 className="text-5xl font-semibold leading-[1.02] text-cream md:text-6xl lg:text-7xl">
+      <h2
+        className={cn(
+          "text-4xl leading-[1.08] md:text-5xl",
+          onDark ? "text-white" : "text-ink-950"
+        )}
+      >
         {title}
       </h2>
       {description && (
-        <p className="mt-6 max-w-xl text-base leading-relaxed text-cream/65">
+        <p
+          className={cn(
+            "mt-5 max-w-xl text-base leading-relaxed",
+            align === "center" && "mx-auto",
+            onDark ? "text-bordeaux-100" : "text-ink-700"
+          )}
+        >
           {description}
         </p>
       )}

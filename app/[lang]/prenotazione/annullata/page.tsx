@@ -18,16 +18,16 @@ export default async function CancelledPage({
   const dict = getDictionary(locale).cancelled;
 
   return (
-    <main className="flex min-h-screen items-center justify-center bg-ink-950 px-6 py-24">
+    <main className="flex min-h-screen items-center justify-center px-6 py-24">
       <div className="max-w-lg text-center">
-        <XCircle className="mx-auto h-14 w-14 text-terracotta-400" />
-        <h1 className="mt-6 font-serif text-4xl font-semibold text-cream">
+        <XCircle className="mx-auto h-14 w-14 text-bordeaux-600" />
+        <h1 className="mt-6 text-4xl text-ink-950">
           {dict.title}
         </h1>
-        <p className="mt-4 text-lg leading-relaxed text-cream/65">{dict.text}</p>
+        <p className="mt-4 text-lg leading-relaxed text-ink-700">{dict.text}</p>
         <Link
           href={`/${locale}#prenota`}
-          className="mt-8 inline-flex items-center justify-center bg-terracotta-500 px-8 py-4 text-xs font-medium uppercase tracking-[0.2em] text-cream transition-colors hover:bg-cream hover:text-ink-950"
+          className="mt-8 inline-flex items-center justify-center bg-bordeaux-600 px-8 py-4 text-sm font-medium text-white transition-colors hover:bg-bordeaux-700"
         >
           {dict.retry}
         </Link>

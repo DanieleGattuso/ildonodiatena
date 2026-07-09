@@ -25,6 +25,10 @@ export const en: Dictionary = {
     ctaSecondary: "The apartments",
     scroll: "Scroll down",
   },
+  manifesto: {
+    lead: "Athena's gift to Greece was an olive tree.",
+    close: "Ours is this estate.",
+  },
   features: {
     eyebrow: "The property",
     title: "Every comfort, in harmony with nature",

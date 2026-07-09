@@ -8,55 +8,53 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        // Palette ispirata alla natura siciliana
-        terracotta: {
-          50: "#fbf3ee",
-          100: "#f4ddcf",
-          200: "#e7b89e",
-          300: "#d9926d",
-          400: "#cf774f",
-          500: "#c2623c", // terra calda principale
-          600: "#a64f30",
-          700: "#833d27",
-          800: "#5f2d1d",
-          900: "#3d1d13",
+        // Bordeaux del logo: colore d'identità del brand.
+        // Il 600 è il tono primario (CTA, accenti); 700-800 per le sezioni
+        // "immerse" (prenotazione, footer). Testo bianco leggibile da 600 in su.
+        bordeaux: {
+          50: "#FAF4F5",
+          100: "#F2E0E3",
+          200: "#E2BCC4",
+          300: "#C88E9B",
+          400: "#A65C70",
+          500: "#873B52",
+          600: "#6E2438",
+          700: "#571A2C",
+          800: "#411323",
+          900: "#2B0B17",
         },
-        olive: {
-          50: "#f6f7f0",
-          100: "#e7ead5",
-          200: "#cfd5ac",
-          300: "#b2bb7e",
-          400: "#97a259",
-          500: "#7a8645", // verde ulivo principale
-          600: "#5f6a36",
-          700: "#49512c",
-          800: "#373d24",
-          900: "#262a1a",
+        // Accento miele/agrumi, usato con parsimonia. Per il testo su fondo
+        // chiaro servono i toni 600-700; i più chiari solo per dettagli grafici.
+        gold: {
+          300: "#E5C285",
+          400: "#D9A441",
+          500: "#BC8527",
+          600: "#96671C",
+          700: "#755013",
         },
-        sand: {
-          50: "#fdfbf7",
-          100: "#f7f1e7",
-          200: "#efe3cf",
-          300: "#e2cdab",
+        // Fondi chiari: off-white con una punta di tinta verso il bordeaux,
+        // mai panna/beige. 50 è il fondo pagina, 100 le superfici in rilievo,
+        // 200-300 i bordi.
+        surface: {
+          50: "#FAF7F6",
+          100: "#F3EDEC",
+          200: "#E7DDDC",
+          300: "#D3C5C3",
         },
-        cream: "#fdfcf9", // bianco puro/caldo per testo e superfici chiare
-        // Neutro quasi nero, scaldato di un soffio verso la stessa tonalità
-        // della terracotta: è la base del sistema "total black" — non il
-        // verde oliva, che resta solo come accento residuale nei dati legacy.
+        // Inchiostro: quasi nero scaldato verso il vino. 950 per i testi,
+        // 700 per il testo secondario (≥ 4.5:1 su surface-50), 400 solo per
+        // icone mute e decorazioni, mai per testo.
         ink: {
-          950: "#121110", // fondo di pagina e sezione
-          900: "#1c1a18", // superfici elevate: nav, form, card, lightbox
-          800: "#302c28", // bordi hairline, divisori
-          700: "#57514a", // icone mute, stati disabilitati (mai per testo piccolo)
+          950: "#211318",
+          700: "#5A484E",
+          400: "#9C8890",
         },
       },
       fontFamily: {
-        // Serif elegante per i titoli, sans pulito per il corpo
-        serif: ["var(--font-cormorant)", "Georgia", "serif"],
-        sans: ["var(--font-inter)", "system-ui", "sans-serif"],
-      },
-      letterSpacing: {
-        widest: "0.25em",
+        // Marcellus: lapidario di matrice classica, un solo peso (400).
+        // Hanken Grotesk: sans umanista per corpo testo e interfaccia.
+        serif: ["var(--font-marcellus)", "Georgia", "serif"],
+        sans: ["var(--font-hanken)", "system-ui", "sans-serif"],
       },
       keyframes: {
         "fade-up": {
@@ -68,8 +66,8 @@ const config: Config = {
           "100%": { opacity: "1" },
         },
         "subtle-zoom": {
-          "0%": { transform: "scale(1)" },
-          "100%": { transform: "scale(1.08)" },
+          "0%": { transform: "scale(1.06)" },
+          "100%": { transform: "scale(1)" },
         },
         "scroll-hint": {
           "0%, 100%": { transform: "translateY(0)", opacity: "0.6" },
@@ -77,9 +75,9 @@ const config: Config = {
         },
       },
       animation: {
-        "fade-up": "fade-up 0.8s ease-out forwards",
+        "fade-up": "fade-up 0.8s cubic-bezier(0.22, 1, 0.36, 1) forwards",
         "fade-in": "fade-in 1.2s ease-out forwards",
-        "subtle-zoom": "subtle-zoom 20s ease-out forwards",
+        "subtle-zoom": "subtle-zoom 8s cubic-bezier(0.22, 1, 0.36, 1) forwards",
         "scroll-hint": "scroll-hint 2.4s ease-in-out infinite",
       },
     },

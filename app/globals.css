@@ -8,22 +8,48 @@
   }
 
   body {
-    @apply bg-ink-950 text-cream font-sans antialiased;
+    @apply bg-surface-50 text-ink-950 font-sans antialiased;
   }
 
-  /* Titoli coerenti su tutto il sito: serif, tracciato leggermente stretto */
+  /* Titoli coerenti su tutto il sito: Marcellus ha un solo peso (400),
+     mai bold sintetico. */
   h1,
   h2,
   h3 {
-    @apply font-serif tracking-tight;
+    @apply font-serif font-normal;
+    text-wrap: balance;
   }
 
   /* Anello di focus unico e centralizzato: niente da ripetere per componente */
   :focus-visible {
-    @apply outline outline-2 outline-offset-4 outline-terracotta-400;
+    @apply outline outline-2 outline-offset-4 outline-bordeaux-600;
   }
 
   ::selection {
-    @apply bg-terracotta-500 text-cream;
+    @apply bg-bordeaux-600 text-white;
+  }
+}
+
+/* Accento del calendario (react-day-picker): fuori da @layer, con doppia
+   classe, per battere il foglio di stile della libreria in cascata. */
+.rdp-root.rdp-root {
+  --rdp-accent-color: theme(colors.bordeaux.600);
+  --rdp-accent-background-color: theme(colors.bordeaux.100);
+}
+
+@layer base {
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
   }
 }

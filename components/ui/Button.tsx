@@ -12,17 +12,17 @@ type ButtonProps = {
 };
 
 const base =
-  "group inline-flex items-center justify-center gap-2 text-xs font-medium uppercase tracking-[0.2em] transition-colors duration-300";
+  "group inline-flex items-center justify-center gap-2 text-sm font-medium transition-colors duration-300";
 
 const variants = {
-  solid: "bg-terracotta-500 px-8 py-4 text-cream hover:bg-cream hover:text-ink-950",
-  line: "border-b border-cream/35 pb-1 text-cream hover:border-cream",
+  solid: "bg-bordeaux-600 px-7 py-3.5 text-white hover:bg-bordeaux-700",
+  line: "border-b border-ink-950/30 pb-1 text-ink-950 hover:border-bordeaux-600 hover:text-bordeaux-600",
 };
 
 /**
- * Unico sistema di CTA del sito: superficie piena (solid) per l'azione
- * primaria, sottolineatura a filo (line) per tutto il resto. Nessuna
- * pillola, nessuna ombra — riusato identico in ogni sezione.
+ * Unico sistema di CTA del sito: superficie piena bordeaux (solid) per
+ * l'azione primaria, sottolineatura a filo (line) per tutto il resto.
+ * Nessuna pillola, nessuna ombra — riusato identico in ogni sezione.
  */
 export default function Button({
   href,
@@ -37,7 +37,7 @@ export default function Button({
     <Link href={href} className={cn(base, variants[variant], className)}>
       {children}
       {showArrow && (
-        <ArrowRight className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-1" />
+        <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
       )}
     </Link>
   );

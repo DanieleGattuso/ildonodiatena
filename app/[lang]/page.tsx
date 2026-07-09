@@ -6,6 +6,7 @@ import { getDictionary } from "@/lib/i18n/dictionaries";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import Hero from "@/components/sections/Hero";
+import Manifesto from "@/components/sections/Manifesto";
 import Features from "@/components/sections/Features";
 import Apartments from "@/components/sections/Apartments";
 import Outdoor from "@/components/sections/Outdoor";
@@ -28,6 +29,7 @@ export default async function Home({
       <Navbar lang={lang} dict={dict.nav} />
       <main>
         <Hero lang={lang} dict={dict.hero} />
+        <Manifesto dict={dict.manifesto} />
         <Features dict={dict.features} />
         <Apartments dict={dict.apartments} />
         <Outdoor dict={dict.outdoor} />

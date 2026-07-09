@@ -1,17 +1,17 @@
 import type { Metadata, Viewport } from "next";
-import { Cormorant_Garamond, Inter } from "next/font/google";
+import { Marcellus, Hanken_Grotesk } from "next/font/google";
 import "./globals.css";
 
-const cormorant = Cormorant_Garamond({
+const marcellus = Marcellus({
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
-  variable: "--font-cormorant",
+  weight: "400",
+  variable: "--font-marcellus",
   display: "swap",
 });
 
-const inter = Inter({
+const hanken = Hanken_Grotesk({
   subsets: ["latin"],
-  variable: "--font-inter",
+  variable: "--font-hanken",
   display: "swap",
 });
 
@@ -27,14 +27,14 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#121110",
+  themeColor: "#FAF7F6",
 };
 
 export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="it" className={`${cormorant.variable} ${inter.variable}`}>
+    <html lang="it" className={`${marcellus.variable} ${hanken.variable}`}>
       <body>{children}</body>
     </html>
   );

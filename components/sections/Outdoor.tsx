@@ -53,13 +53,9 @@ export default function Outdoor({ dict }: { dict: Dictionary["outdoor"] }) {
   }, [open, prev, next]);
 
   return (
-    <section id="piscina" className="bg-ink-950 py-24 md:py-32">
+    <section id="piscina" className="bg-surface-100 py-24 md:py-32">
       <Container>
-        <SectionHeading
-          eyebrow={dict.eyebrow}
-          title={dict.title}
-          description={dict.description}
-        />
+        <SectionHeading title={dict.title} description={dict.description} />
 
         <div className="mt-16 grid auto-rows-[180px] grid-cols-2 gap-3 sm:auto-rows-[220px] md:grid-cols-4 md:gap-4">
           {preview.map((src, i) => {
@@ -72,7 +68,7 @@ export default function Outdoor({ dict }: { dict: Dictionary["outdoor"] }) {
                 onClick={() => show(i)}
                 aria-label={`${dict.alt} — ${i + 1}`}
                 className={cn(
-                  "group relative overflow-hidden border border-ink-800",
+                  "group relative overflow-hidden",
                   featured && "col-span-2 row-span-2"
                 )}
               >
@@ -90,9 +86,9 @@ export default function Outdoor({ dict }: { dict: Dictionary["outdoor"] }) {
                 />
 
                 {isLast && remaining > 0 && (
-                  <span className="absolute inset-0 flex flex-col items-center justify-center gap-1 bg-ink-950/75 text-cream transition-colors group-hover:bg-ink-950/85">
+                  <span className="absolute inset-0 flex flex-col items-center justify-center gap-1 bg-ink-950/70 text-white transition-colors group-hover:bg-ink-950/80">
                     <Plus className="h-6 w-6" />
-                    <span className="text-lg font-semibold">
+                    <span className="text-lg font-medium">
                       +{remaining} {dict.photos}
                     </span>
                   </span>
@@ -106,12 +102,12 @@ export default function Outdoor({ dict }: { dict: Dictionary["outdoor"] }) {
       {/* Lightbox */}
       {open && (
         <div
-          className="fixed inset-0 z-[100] flex items-center justify-center bg-ink-950/97 p-4"
+          className="fixed inset-0 z-[100] flex items-center justify-center bg-ink-950/95 p-4"
           onClick={() => setOpen(false)}
         >
           <button
             aria-label="Chiudi"
-            className="absolute right-5 top-5 text-cream/80 transition-colors hover:text-cream"
+            className="absolute right-5 top-5 text-white/70 transition-colors hover:text-white"
             onClick={() => setOpen(false)}
           >
             <X className="h-8 w-8" />
@@ -119,7 +115,7 @@ export default function Outdoor({ dict }: { dict: Dictionary["outdoor"] }) {
 
           <button
             aria-label="Precedente"
-            className="absolute left-3 text-cream/80 transition-colors hover:text-cream sm:left-6"
+            className="absolute left-3 text-white/70 transition-colors hover:text-white sm:left-6"
             onClick={(e) => {
               e.stopPropagation();
               prev();
@@ -141,14 +137,14 @@ export default function Outdoor({ dict }: { dict: Dictionary["outdoor"] }) {
               className="object-contain"
               priority
             />
-            <span className="absolute bottom-4 left-1/2 -translate-x-1/2 bg-ink-950/80 px-4 py-1.5 text-sm text-cream">
+            <span className="absolute bottom-4 left-1/2 -translate-x-1/2 bg-ink-950/80 px-4 py-1.5 text-sm text-white">
               {index + 1} / {images.length}
             </span>
           </div>
 
           <button
             aria-label="Successiva"
-            className="absolute right-3 text-cream/80 transition-colors hover:text-cream sm:right-6"
+            className="absolute right-3 text-white/70 transition-colors hover:text-white sm:right-6"
             onClick={(e) => {
               e.stopPropagation();
               next();

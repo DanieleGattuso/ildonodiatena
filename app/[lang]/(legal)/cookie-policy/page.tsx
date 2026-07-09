@@ -44,20 +44,20 @@ export default async function CookiePolicyPage({
   const t = content[locale];
 
   return (
-    <main className="bg-ink-950 py-24">
+    <main className="py-24">
       <Container className="max-w-3xl">
-        <Link href={`/${locale}`} className="text-sm font-medium text-cream/60 hover:text-cream">
+        <Link href={`/${locale}`} className="text-sm font-medium text-ink-700 hover:text-bordeaux-600">
           {t.back}
         </Link>
-        <h1 className="mt-6 font-serif text-4xl font-semibold text-cream">{t.title}</h1>
-        <div className="mt-8 space-y-5 text-cream/65">
+        <h1 className="mt-6 text-4xl text-ink-950">{t.title}</h1>
+        <div className="mt-8 space-y-5 text-ink-700">
           <p>{t.intro}</p>
-          <h2 className="font-serif text-2xl text-cream">{t.h1}</h2>
+          <h2 className="text-2xl text-ink-950">{t.h1}</h2>
           <p>{t.p1}</p>
-          <h2 className="font-serif text-2xl text-cream">{t.h2}</h2>
+          <h2 className="text-2xl text-ink-950">{t.h2}</h2>
           <p>{t.p2}</p>
           <p>{t.p3}</p>
-          <p className="text-sm text-cream/40">{t.note}</p>
+          <p className="text-sm text-ink-950/40">{t.note}</p>
         </div>
       </Container>
     </main>

@@ -12,34 +12,27 @@ export default function Experience({
   dict: Dictionary["experience"];
 }) {
   return (
-    <section
-      id="territorio"
-      className="relative overflow-hidden bg-ink-950 py-24 text-cream md:py-32"
-    >
+    <section id="territorio" className="overflow-hidden py-24 md:py-32">
       <Container>
         <div className="grid items-center gap-14 lg:grid-cols-2 lg:gap-20">
           <div>
-            <div className="mb-6 flex items-center gap-4">
-              <span className="h-px w-10 flex-none bg-terracotta-400" />
-              <p className="text-xs font-medium uppercase tracking-[0.3em] text-cream/60">
-                {dict.eyebrow}
-              </p>
-            </div>
-            <h2 className="text-5xl font-semibold leading-[1.02] md:text-6xl">
+            <h2 className="text-4xl leading-[1.08] text-ink-950 md:text-5xl">
               {dict.title}
             </h2>
-            <p className="mt-6 text-base leading-relaxed text-cream/65">
+            <p className="mt-5 text-base leading-relaxed text-ink-700">
               {dict.description}
             </p>
 
-            <div className="mt-10 grid gap-8 border-t border-ink-800 pt-10 sm:grid-cols-2">
+            <div className="mt-10 grid gap-8 border-t border-surface-200 pt-10 sm:grid-cols-2">
               {dict.items.map(({ icon, title, text }) => {
                 const Icon = iconMap[icon];
                 return (
                   <div key={title}>
-                    {Icon && <Icon className="h-5 w-5 text-terracotta-400" />}
-                    <h3 className="mt-3 font-semibold text-cream">{title}</h3>
-                    <p className="mt-1.5 text-sm leading-relaxed text-cream/60">
+                    {Icon && <Icon className="h-5 w-5 text-bordeaux-600" />}
+                    <h3 className="mt-3 font-sans font-semibold text-ink-950">
+                      {title}
+                    </h3>
+                    <p className="mt-1.5 text-sm leading-relaxed text-ink-700">
                       {text}
                     </p>
                   </div>
@@ -48,7 +41,7 @@ export default function Experience({
             </div>
           </div>
 
-          <div className="relative aspect-[3/4] overflow-hidden border border-ink-800">
+          <div className="relative aspect-[3/4] overflow-hidden">
             <Image
               src="/images/territory/vista.webp"
               alt={dict.imageAlt}

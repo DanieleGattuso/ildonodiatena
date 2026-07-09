@@ -23,6 +23,10 @@ export const it = {
     ctaSecondary: "Gli appartamenti",
     scroll: "Scorri verso il basso",
   },
+  manifesto: {
+    lead: "Il dono di Atena alla Grecia fu un ulivo.",
+    close: "Il nostro è questa tenuta.",
+  },
   features: {
     eyebrow: "La struttura",
     title: "Tutto il comfort, nel rispetto della natura",
