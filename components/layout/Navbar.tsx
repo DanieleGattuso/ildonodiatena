@@ -8,6 +8,7 @@ import { locales, type Locale } from "@/lib/i18n/config";
 import type { Dictionary } from "@/lib/i18n/dictionaries";
 import { cn } from "@/lib/utils";
 import Container from "@/components/ui/Container";
+import Button from "@/components/ui/Button";
 
 type NavbarProps = {
   lang: Locale;
@@ -15,8 +16,9 @@ type NavbarProps = {
 };
 
 /**
- * Navbar trasparente sopra la Hero, diventa solida (sfondo crema) allo scroll.
- * Include menu mobile e selettore di lingua.
+ * Navbar sempre a superficie piena (ink-950): nessuno stato trasparente da
+ * bilanciare contro foto imprevedibili. Il bordo hairline si accende solo
+ * dopo lo scroll, per dare profondità senza ombre.
  */
 export default function Navbar({ lang, dict }: NavbarProps) {
   const [scrolled, setScrolled] = useState(false);
@@ -36,90 +38,75 @@ export default function Navbar({ lang, dict }: NavbarProps) {
   return (
     <header
       className={cn(
-        "fixed inset-x-0 top-0 z-50 transition-all duration-500",
-        scrolled ? "bg-cream/95 shadow-sm backdrop-blur-md" : "bg-transparent"
+        "fixed inset-x-0 top-0 z-50 bg-ink-950 transition-[border-color] duration-500",
+        "border-b",
+        scrolled ? "border-ink-800" : "border-transparent"
       )}
     >
       <Container className="flex h-20 items-center justify-between">
         <Link
           href={`/${lang}`}
-          className={cn(
-            "font-serif text-2xl font-semibold tracking-wide transition-colors",
-            scrolled ? "text-olive-900" : "text-cream"
-          )}
+          className="whitespace-nowrap font-serif text-2xl font-semibold tracking-wide text-cream"
         >
           Il dono di Atena
         </Link>
 
-        <nav className="hidden items-center gap-8 md:flex">
+        <nav className="hidden items-center gap-8 lg:flex">
           {dict.links.map((link) => (
             <Link
               key={link.href}
               href={link.href}
-              className={cn(
-                "text-sm font-medium uppercase tracking-wider transition-colors hover:text-terracotta-400",
-                scrolled ? "text-olive-800" : "text-cream"
-              )}
+              className="text-xs font-medium uppercase tracking-[0.15em] text-cream/70 transition-colors hover:text-cream"
             >
               {link.label}
             </Link>
           ))}
 
-          <LocaleSwitcher
-            current={lang}
-            scrolled={scrolled}
-            onSwitch={switchLocale}
-          />
+          <LocaleSwitcher current={lang} onSwitch={switchLocale} />
 
-          <a
-            href={contact.phoneHref}
-            className="inline-flex items-center gap-2 rounded-full bg-terracotta-500 px-5 py-2.5 text-sm font-medium uppercase tracking-wider text-cream transition-colors hover:bg-terracotta-600"
-          >
-            <Phone className="h-4 w-4" />
+          <Button href={contact.phoneHref} variant="solid" arrow={false} className="px-5 py-2.5">
+            <Phone className="h-3.5 w-3.5" />
             {dict.book}
-          </a>
+          </Button>
         </nav>
 
         <button
           type="button"
           onClick={() => setOpen((v) => !v)}
           aria-label={open ? dict.closeMenu : dict.openMenu}
-          className={cn(
-            "md:hidden",
-            scrolled || open ? "text-olive-900" : "text-cream"
-          )}
+          className="text-cream lg:hidden"
         >
           {open ? <X className="h-7 w-7" /> : <Menu className="h-7 w-7" />}
         </button>
       </Container>
 
       {open && (
-        <nav className="border-t border-olive-100 bg-cream md:hidden">
+        <nav className="border-t border-ink-800 bg-ink-950 lg:hidden">
           <Container className="flex flex-col gap-1 py-4">
             {dict.links.map((link) => (
               <Link
                 key={link.href}
                 href={link.href}
                 onClick={() => setOpen(false)}
-                className="rounded-lg px-3 py-3 text-base font-medium text-olive-800 transition-colors hover:bg-olive-50"
+                className="px-3 py-3 text-sm font-medium text-cream/80 transition-colors hover:text-cream"
               >
                 {link.label}
               </Link>
             ))}
             <div className="px-3 py-2">
-              <LocaleSwitcher
-                current={lang}
-                scrolled
-                onSwitch={switchLocale}
-              />
+              <LocaleSwitcher current={lang} onSwitch={switchLocale} />
             </div>
-            <a
-              href={contact.phoneHref}
-              className="mt-2 inline-flex items-center justify-center gap-2 rounded-full bg-terracotta-500 px-5 py-3 text-sm font-medium uppercase tracking-wider text-cream"
-            >
-              <Phone className="h-4 w-4" />
-              {dict.bookNow}
-            </a>
+            <div className="px-3 pt-2">
+              <Button
+                href={contact.phoneHref}
+                variant="solid"
+                arrow={false}
+                className="w-full"
+              >
+                <Phone className="h-4 w-4" />
+                {dict.bookNow}
+              </Button>
+            </div>
           </Container>
         </nav>
       )}
@@ -129,20 +116,13 @@ export default function Navbar({ lang, dict }: NavbarProps) {
 
 function LocaleSwitcher({
   current,
-  scrolled,
   onSwitch,
 }: {
   current: Locale;
-  scrolled: boolean;
   onSwitch: (l: Locale) => void;
 }) {
   return (
-    <div
-      className={cn(
-        "flex items-center gap-1 text-sm font-medium uppercase",
-        scrolled ? "text-olive-800" : "text-cream"
-      )}
-    >
+    <div className="flex items-center gap-1 text-xs font-medium uppercase text-cream/70">
       {locales.map((l, i) => (
         <span key={l} className="flex items-center gap-1">
           {i > 0 && <span className="opacity-40">/</span>}
@@ -151,8 +131,8 @@ function LocaleSwitcher({
             onClick={() => onSwitch(l)}
             aria-current={l === current ? "true" : undefined}
             className={cn(
-              "transition-colors hover:text-terracotta-400",
-              l === current ? "font-bold" : "opacity-60"
+              "transition-colors hover:text-cream",
+              l === current ? "text-cream" : "opacity-70"
             )}
           >
             {l}

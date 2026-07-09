@@ -16,7 +16,9 @@ type GalleryProps = {
 
 /**
  * Galleria con immagine di copertina + miniature e lightbox a schermo intero
- * (navigazione con frecce, tastiera e chiusura con ESC/overlay).
+ * (navigazione con frecce, tastiera e chiusura con ESC/overlay). Bordi a
+ * vivo, nessuna ombra: solo un filo (hairline) a separare le immagini dal
+ * fondo ink.
  */
 export default function Gallery({
   images,
@@ -66,7 +68,7 @@ export default function Gallery({
         type="button"
         onClick={() => show(0)}
         aria-label="Apri galleria"
-        className="group relative block aspect-[4/3] w-full overflow-hidden rounded-2xl shadow-xl shadow-olive-900/10"
+        className="group relative block aspect-[4/3] w-full overflow-hidden border border-ink-800"
       >
         <Image
           src={cover}
@@ -76,7 +78,7 @@ export default function Gallery({
           sizes="(max-width: 1024px) 100vw, 50vw"
           className="object-cover transition-transform duration-700 group-hover:scale-105"
         />
-        <span className="absolute bottom-3 right-3 flex items-center gap-1.5 rounded-full bg-olive-900/70 px-3 py-1.5 text-xs font-medium text-cream backdrop-blur-sm">
+        <span className="absolute bottom-3 right-3 flex items-center gap-1.5 bg-ink-950/80 px-3 py-1.5 text-xs font-medium text-cream">
           <Expand className="h-3.5 w-3.5" />
           {images.length} {photosLabel}
         </span>
@@ -91,7 +93,7 @@ export default function Gallery({
               type="button"
               onClick={() => show(i + 1)}
               aria-label={`Apri foto ${i + 2}`}
-              className="relative aspect-[4/3] overflow-hidden rounded-xl shadow-sm transition hover:opacity-90"
+              className="relative aspect-[4/3] overflow-hidden border border-ink-800 transition hover:opacity-80"
             >
               <Image
                 src={src}
@@ -108,12 +110,12 @@ export default function Gallery({
       {/* Lightbox */}
       {open && (
         <div
-          className="fixed inset-0 z-[100] flex items-center justify-center bg-olive-900/95 p-4"
+          className="fixed inset-0 z-[100] flex items-center justify-center bg-ink-950/97 p-4"
           onClick={() => setOpen(false)}
         >
           <button
             aria-label="Chiudi"
-            className="absolute right-5 top-5 text-cream/80 hover:text-cream"
+            className="absolute right-5 top-5 text-cream/70 hover:text-cream"
             onClick={() => setOpen(false)}
           >
             <X className="h-8 w-8" />
@@ -121,7 +123,7 @@ export default function Gallery({
 
           <button
             aria-label="Precedente"
-            className="absolute left-3 text-cream/80 hover:text-cream sm:left-6"
+            className="absolute left-3 text-cream/70 hover:text-cream sm:left-6"
             onClick={(e) => {
               e.stopPropagation();
               prev();
@@ -143,14 +145,14 @@ export default function Gallery({
               className="object-contain"
               priority
             />
-            <span className="absolute bottom-4 left-1/2 -translate-x-1/2 rounded-full bg-olive-900/70 px-4 py-1.5 text-sm text-cream">
+            <span className="absolute bottom-4 left-1/2 -translate-x-1/2 bg-ink-950/80 px-4 py-1.5 text-sm text-cream">
               {index + 1} / {images.length}
             </span>
           </div>
 
           <button
             aria-label="Successiva"
-            className="absolute right-3 text-cream/80 hover:text-cream sm:right-6"
+            className="absolute right-3 text-cream/70 hover:text-cream sm:right-6"
             onClick={(e) => {
               e.stopPropagation();
               next();

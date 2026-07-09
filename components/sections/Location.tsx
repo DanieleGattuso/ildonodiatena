@@ -10,7 +10,7 @@ const iconMap: Record<string, LucideIcon> = { Car, Building2, Plane };
 /** 5. Location — posizione strategica + mappa. */
 export default function Location({ dict }: { dict: Dictionary["location"] }) {
   return (
-    <section id="location" className="bg-cream py-24 md:py-32">
+    <section id="location" className="bg-ink-950 py-24 md:py-32">
       <Container>
         <SectionHeading
           eyebrow={dict.eyebrow}
@@ -20,19 +20,19 @@ export default function Location({ dict }: { dict: Dictionary["location"] }) {
 
         <div className="mt-16 grid gap-10 lg:grid-cols-2 lg:gap-14">
           <div className="flex flex-col justify-center">
-            <div className="space-y-7">
+            <div className="space-y-7 border-t border-ink-800 pt-10">
               {dict.items.map(({ icon, title, text }) => {
                 const Icon = iconMap[icon];
                 return (
                   <div key={title} className="flex gap-4">
-                    <span className="flex h-12 w-12 flex-none items-center justify-center rounded-xl bg-terracotta-50 text-terracotta-500">
-                      {Icon && <Icon className="h-6 w-6" />}
-                    </span>
+                    {Icon && (
+                      <Icon className="mt-0.5 h-5 w-5 flex-none text-terracotta-400" />
+                    )}
                     <div>
-                      <h3 className="text-lg font-semibold text-olive-900">
+                      <h3 className="text-lg font-semibold text-cream">
                         {title}
                       </h3>
-                      <p className="mt-1 leading-relaxed text-olive-700">
+                      <p className="mt-1 leading-relaxed text-cream/60">
                         {text}
                       </p>
                     </div>
@@ -41,13 +41,13 @@ export default function Location({ dict }: { dict: Dictionary["location"] }) {
               })}
             </div>
 
-            <div className="mt-9 flex items-center gap-3 rounded-xl bg-olive-50 px-5 py-4 text-olive-800">
-              <MapPin className="h-5 w-5 flex-none text-terracotta-500" />
+            <div className="mt-9 flex items-center gap-3 border border-ink-800 px-5 py-4 text-cream/80">
+              <MapPin className="h-5 w-5 flex-none text-terracotta-400" />
               <span className="font-medium">{contact.address}</span>
             </div>
           </div>
 
-          <div className="overflow-hidden rounded-2xl shadow-xl shadow-olive-900/10">
+          <div className="overflow-hidden border border-ink-800">
             <MapEmbed
               src={`https://www.google.com/maps?q=${contact.mapsQuery}&output=embed`}
               title={dict.mapTitle}

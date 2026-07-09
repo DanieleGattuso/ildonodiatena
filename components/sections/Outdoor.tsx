@@ -53,7 +53,7 @@ export default function Outdoor({ dict }: { dict: Dictionary["outdoor"] }) {
   }, [open, prev, next]);
 
   return (
-    <section id="piscina" className="bg-sand-50 py-24 md:py-32">
+    <section id="piscina" className="bg-ink-950 py-24 md:py-32">
       <Container>
         <SectionHeading
           eyebrow={dict.eyebrow}
@@ -72,7 +72,7 @@ export default function Outdoor({ dict }: { dict: Dictionary["outdoor"] }) {
                 onClick={() => show(i)}
                 aria-label={`${dict.alt} — ${i + 1}`}
                 className={cn(
-                  "group relative overflow-hidden rounded-2xl shadow-lg shadow-olive-900/10",
+                  "group relative overflow-hidden border border-ink-800",
                   featured && "col-span-2 row-span-2"
                 )}
               >
@@ -88,10 +88,9 @@ export default function Outdoor({ dict }: { dict: Dictionary["outdoor"] }) {
                   }
                   className="object-cover transition-transform duration-700 will-change-transform group-hover:scale-105 motion-reduce:transition-none motion-reduce:group-hover:scale-100"
                 />
-                <span className="absolute inset-0 bg-olive-900/0 transition-colors duration-500 group-hover:bg-olive-900/10" />
 
                 {isLast && remaining > 0 && (
-                  <span className="absolute inset-0 flex flex-col items-center justify-center gap-1 bg-olive-900/55 text-cream backdrop-blur-[2px] transition-colors group-hover:bg-olive-900/65">
+                  <span className="absolute inset-0 flex flex-col items-center justify-center gap-1 bg-ink-950/75 text-cream transition-colors group-hover:bg-ink-950/85">
                     <Plus className="h-6 w-6" />
                     <span className="text-lg font-semibold">
                       +{remaining} {dict.photos}
@@ -107,7 +106,7 @@ export default function Outdoor({ dict }: { dict: Dictionary["outdoor"] }) {
       {/* Lightbox */}
       {open && (
         <div
-          className="fixed inset-0 z-[100] flex items-center justify-center bg-olive-900/95 p-4"
+          className="fixed inset-0 z-[100] flex items-center justify-center bg-ink-950/97 p-4"
           onClick={() => setOpen(false)}
         >
           <button
@@ -142,7 +141,7 @@ export default function Outdoor({ dict }: { dict: Dictionary["outdoor"] }) {
               className="object-contain"
               priority
             />
-            <span className="absolute bottom-4 left-1/2 -translate-x-1/2 rounded-full bg-olive-900/70 px-4 py-1.5 text-sm text-cream">
+            <span className="absolute bottom-4 left-1/2 -translate-x-1/2 bg-ink-950/80 px-4 py-1.5 text-sm text-cream">
               {index + 1} / {images.length}
             </span>
           </div>

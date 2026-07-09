@@ -16,7 +16,7 @@ export default function Footer({ lang, dict, navLinks }: FooterProps) {
   const year = new Date().getFullYear();
 
   return (
-    <footer className="bg-olive-900 text-cream/80">
+    <footer className="border-t border-ink-800 bg-ink-950 text-cream/70">
       <Container className="py-16">
         <div className="grid gap-10 md:grid-cols-3">
           <div>
@@ -75,7 +75,7 @@ export default function Footer({ lang, dict, navLinks }: FooterProps) {
           </div>
         </div>
 
-        <div className="mt-12 flex flex-col items-center justify-between gap-4 border-t border-cream/10 pt-8 text-sm sm:flex-row">
+        <div className="mt-12 flex flex-col items-center justify-between gap-4 border-t border-ink-800 pt-8 text-sm sm:flex-row">
           <p>© {year} Il dono di Atena. {dict.rights}</p>
           <div className="flex gap-6">
             <Link

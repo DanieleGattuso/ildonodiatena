@@ -8,25 +8,22 @@
   }
 
   body {
-    @apply bg-cream text-olive-900 font-sans antialiased;
+    @apply bg-ink-950 text-cream font-sans antialiased;
   }
 
-  /* Titoli di sezione coerenti */
+  /* Titoli coerenti su tutto il sito: serif, tracciato leggermente stretto */
   h1,
   h2,
   h3 {
-    @apply font-serif;
+    @apply font-serif tracking-tight;
   }
-}
 
-@layer utilities {
-  /* Overlay graduale per leggibilità del testo sopra le immagini */
-  .overlay-bottom {
-    background: linear-gradient(
-      to top,
-      rgba(38, 42, 26, 0.75) 0%,
-      rgba(38, 42, 26, 0.35) 45%,
-      rgba(38, 42, 26, 0.1) 100%
-    );
+  /* Anello di focus unico e centralizzato: niente da ripetere per componente */
+  :focus-visible {
+    @apply outline outline-2 outline-offset-4 outline-terracotta-400;
+  }
+
+  ::selection {
+    @apply bg-terracotta-500 text-cream;
   }
 }

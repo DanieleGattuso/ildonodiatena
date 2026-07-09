@@ -18,11 +18,11 @@ export const en: Dictionary = {
   hero: {
     location: "Cefalù · Sicily",
     title: "Il dono di Atena",
-    subtitle: "Your relaxing oasis in Cefalù",
+    subtitle: "The house Athena would have kept for herself.",
     description:
-      "Two independent apartments with a swimming pool, surrounded by an organic estate of olive and citrus trees, just minutes from the historic centre.",
-    ctaPrimary: "Info & booking",
-    ctaSecondary: "Discover the apartments",
+      "Two independent apartments, a private pool, a centuries-old organic olive grove. Four kilometres from Cefalù: close to the sea, far from the noise.",
+    ctaPrimary: "Check availability",
+    ctaSecondary: "The apartments",
     scroll: "Scroll down",
   },
   features: {

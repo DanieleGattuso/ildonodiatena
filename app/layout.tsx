@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Cormorant_Garamond, Inter } from "next/font/google";
 import "./globals.css";
 
@@ -24,6 +24,10 @@ export const metadata: Metadata = {
   description:
     "Il dono di Atena: la tua oasi di relax a Cefalù. Villa con piscina, due appartamenti indipendenti immersi in una tenuta biologica di ulivi e agrumi.",
   icons: { icon: "/icon.svg" },
+};
+
+export const viewport: Viewport = {
+  themeColor: "#121110",
 };
 
 export default function RootLayout({

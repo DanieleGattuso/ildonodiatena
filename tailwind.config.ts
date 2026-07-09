@@ -39,7 +39,16 @@ const config: Config = {
           200: "#efe3cf",
           300: "#e2cdab",
         },
-        cream: "#fdfcf9", // bianco puro/caldo per gli spazi
+        cream: "#fdfcf9", // bianco puro/caldo per testo e superfici chiare
+        // Neutro quasi nero, scaldato di un soffio verso la stessa tonalità
+        // della terracotta: è la base del sistema "total black" — non il
+        // verde oliva, che resta solo come accento residuale nei dati legacy.
+        ink: {
+          950: "#121110", // fondo di pagina e sezione
+          900: "#1c1a18", // superfici elevate: nav, form, card, lightbox
+          800: "#302c28", // bordi hairline, divisori
+          700: "#57514a", // icone mute, stati disabilitati (mai per testo piccolo)
+        },
       },
       fontFamily: {
         // Serif elegante per i titoli, sans pulito per il corpo

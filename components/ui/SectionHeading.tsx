@@ -5,49 +5,39 @@ type SectionHeadingProps = {
   title: string;
   description?: string;
   align?: "left" | "center";
-  invert?: boolean;
 };
 
-/** Intestazione coerente per ogni sezione: occhiello + titolo serif + descrizione. */
+/**
+ * Apertura di sezione coerente su tutto il sito: una riga hairline porta
+ * l'etichetta, il titolo enorme segue sotto. Sempre su fondo ink — un solo
+ * sistema di testo (crema a opacità decrescente), niente varianti "invert".
+ */
 export default function SectionHeading({
   eyebrow,
   title,
   description,
-  align = "center",
-  invert = false,
+  align = "left",
 }: SectionHeadingProps) {
   return (
-    <div
-      className={cn(
-        "max-w-2xl",
-        align === "center" ? "mx-auto text-center" : "text-left"
-      )}
-    >
+    <div className={cn("max-w-3xl", align === "center" && "mx-auto text-center")}>
       {eyebrow && (
-        <p
+        <div
           className={cn(
-            "mb-3 text-sm font-medium uppercase tracking-widest",
-            invert ? "text-terracotta-200" : "text-terracotta-500"
+            "mb-6 flex items-center gap-4",
+            align === "center" && "justify-center"
           )}
         >
-          {eyebrow}
-        </p>
+          <span className="h-px w-10 flex-none bg-terracotta-400" />
+          <p className="text-xs font-medium uppercase tracking-[0.3em] text-cream/60">
+            {eyebrow}
+          </p>
+        </div>
       )}
-      <h2
-        className={cn(
-          "text-4xl font-semibold leading-tight md:text-5xl",
-          invert ? "text-cream" : "text-olive-900"
-        )}
-      >
+      <h2 className="text-5xl font-semibold leading-[1.02] text-cream md:text-6xl lg:text-7xl">
         {title}
       </h2>
       {description && (
-        <p
-          className={cn(
-            "mt-5 text-lg leading-relaxed",
-            invert ? "text-cream/80" : "text-olive-700"
-          )}
-        >
+        <p className="mt-6 max-w-xl text-base leading-relaxed text-cream/65">
           {description}
         </p>
       )}

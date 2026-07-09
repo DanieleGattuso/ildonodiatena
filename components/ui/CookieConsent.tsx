@@ -29,14 +29,14 @@ export default function CookieConsent({ lang, dict }: Props) {
 
   return (
     <div className="fixed inset-x-0 bottom-0 z-[90] p-4 sm:p-6">
-      <div className="mx-auto flex max-w-4xl flex-col gap-4 rounded-2xl border border-olive-100 bg-cream/95 p-5 shadow-2xl shadow-olive-900/10 backdrop-blur-md sm:flex-row sm:items-center sm:justify-between">
+      <div className="mx-auto flex max-w-4xl flex-col gap-4 border border-ink-800 bg-ink-900 p-5 sm:flex-row sm:items-center sm:justify-between">
         <div className="flex items-start gap-3">
-          <Cookie className="mt-0.5 h-6 w-6 flex-none text-terracotta-500" />
-          <p className="text-sm leading-relaxed text-olive-700">
+          <Cookie className="mt-0.5 h-5 w-5 flex-none text-terracotta-400" />
+          <p className="text-sm leading-relaxed text-cream/65">
             {dict.text}{" "}
             <Link
               href={`/${lang}/cookie-policy`}
-              className="font-medium text-terracotta-600 underline"
+              className="font-medium text-cream underline underline-offset-2"
             >
               {dict.more}
             </Link>
@@ -45,13 +45,13 @@ export default function CookieConsent({ lang, dict }: Props) {
         <div className="flex flex-none gap-3">
           <button
             onClick={() => choose("rejected")}
-            className="rounded-full border border-olive-200 px-5 py-2.5 text-sm font-medium text-olive-700 transition-colors hover:bg-olive-50"
+            className="border border-ink-800 px-5 py-2.5 text-xs font-medium uppercase tracking-[0.1em] text-cream/70 transition-colors hover:border-cream/40 hover:text-cream"
           >
             {dict.reject}
           </button>
           <button
             onClick={() => choose("accepted")}
-            className="rounded-full bg-terracotta-500 px-6 py-2.5 text-sm font-medium text-cream transition-colors hover:bg-terracotta-600"
+            className="bg-terracotta-500 px-6 py-2.5 text-xs font-medium uppercase tracking-[0.1em] text-cream transition-colors hover:bg-cream hover:text-ink-950"
           >
             {dict.accept}
           </button>

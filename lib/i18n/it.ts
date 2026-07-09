@@ -16,11 +16,11 @@ export const it = {
   hero: {
     location: "Cefalù · Sicilia",
     title: "Il dono di Atena",
-    subtitle: "La tua oasi di relax a Cefalù",
+    subtitle: "La casa che Atena avrebbe scelto per sé.",
     description:
-      "Due appartamenti indipendenti con piscina, immersi in una tenuta biologica di ulivi e agrumi, a pochi minuti dal centro storico.",
-    ctaPrimary: "Info e prenotazioni",
-    ctaSecondary: "Scopri gli appartamenti",
+      "Due appartamenti indipendenti, piscina privata, un uliveto biologico secolare. Quattro chilometri da Cefalù: vicini al mare, lontani dal rumore.",
+    ctaPrimary: "Verifica disponibilità",
+    ctaSecondary: "Gli appartamenti",
     scroll: "Scorri verso il basso",
   },
   features: {

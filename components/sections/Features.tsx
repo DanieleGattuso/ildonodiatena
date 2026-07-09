@@ -20,10 +20,10 @@ const iconMap: Record<string, LucideIcon> = {
   Trees,
 };
 
-/** 2. La Struttura — griglia di servizi con icone. */
+/** 2. La Struttura — specchietto piatto di servizi, nessuna card decorativa. */
 export default function Features({ dict }: { dict: Dictionary["features"] }) {
   return (
-    <section id="struttura" className="bg-sand-50 py-24 md:py-32">
+    <section id="struttura" className="bg-ink-950 py-24 md:py-32">
       <Container>
         <SectionHeading
           eyebrow={dict.eyebrow}
@@ -31,21 +31,16 @@ export default function Features({ dict }: { dict: Dictionary["features"] }) {
           description={dict.description}
         />
 
-        <div className="mt-16 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="mt-20 grid gap-x-10 gap-y-14 border-t border-ink-800 pt-14 sm:grid-cols-2 lg:grid-cols-3">
           {dict.items.map((feature) => {
             const Icon = iconMap[feature.icon];
             return (
-              <div
-                key={feature.title}
-                className="group rounded-2xl border border-olive-100 bg-cream p-8 transition-all duration-300 hover:-translate-y-1 hover:border-olive-200 hover:shadow-xl hover:shadow-olive-900/5"
-              >
-                <span className="inline-flex h-14 w-14 items-center justify-center rounded-xl bg-olive-100 text-olive-600 transition-colors duration-300 group-hover:bg-terracotta-500 group-hover:text-cream">
-                  {Icon && <Icon className="h-7 w-7" />}
-                </span>
-                <h3 className="mt-6 text-xl font-semibold text-olive-900">
+              <div key={feature.title}>
+                {Icon && <Icon className="h-6 w-6 text-terracotta-400" />}
+                <h3 className="mt-5 text-lg font-semibold text-cream">
                   {feature.title}
                 </h3>
-                <p className="mt-3 leading-relaxed text-olive-700">
+                <p className="mt-2 text-sm leading-relaxed text-cream/60">
                   {feature.description}
                 </p>
               </div>

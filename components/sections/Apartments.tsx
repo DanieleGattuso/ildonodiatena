@@ -15,7 +15,7 @@ type ApartmentsDict = Dictionary["apartments"];
  */
 export default function Apartments({ dict }: { dict: ApartmentsDict }) {
   return (
-    <section id="appartamenti" className="bg-cream py-24 md:py-32">
+    <section id="appartamenti" className="bg-ink-950 py-24 md:py-32">
       <Container>
         <SectionHeading
           eyebrow={dict.eyebrow}
@@ -52,7 +52,7 @@ function ApartmentRow({
   return (
     <article
       id={apartment.id}
-      className="grid items-center gap-10 lg:grid-cols-2 lg:gap-16"
+      className="grid items-center gap-10 border-t border-ink-800 pt-14 lg:grid-cols-2 lg:gap-16"
     >
       <Gallery
         images={apartment.gallery}
@@ -62,31 +62,31 @@ function ApartmentRow({
       />
 
       <div className={cn(reverse && "lg:order-first")}>
-        <p className="mb-2 text-sm font-medium uppercase tracking-widest text-terracotta-500">
+        <p className="mb-2 text-xs font-medium uppercase tracking-[0.25em] text-terracotta-400">
           {dict.label}
         </p>
-        <h3 className="text-4xl font-semibold text-olive-900 md:text-5xl">
+        <h3 className="text-4xl font-semibold text-cream md:text-5xl">
           {apartment.name}
         </h3>
-        <p className="mt-2 text-lg italic text-olive-600">{t.tagline}</p>
+        <p className="mt-2 font-serif text-lg italic text-cream/60">
+          {t.tagline}
+        </p>
 
-        <p className="mt-6 text-lg leading-relaxed text-olive-700">
+        <p className="mt-6 text-base leading-relaxed text-cream/65">
           {t.description}
         </p>
 
         <ul className="mt-8 grid gap-3 sm:grid-cols-2">
           {t.features.map((feature) => (
-            <li key={feature} className="flex items-start gap-3 text-olive-800">
-              <span className="mt-0.5 flex h-6 w-6 flex-none items-center justify-center rounded-full bg-olive-100 text-olive-600">
-                <Check className="h-4 w-4" />
-              </span>
+            <li key={feature} className="flex items-start gap-2.5 text-sm text-cream/80">
+              <Check className="mt-0.5 h-4 w-4 flex-none text-terracotta-400" />
               <span>{feature}</span>
             </li>
           ))}
         </ul>
 
         <div className="mt-9">
-          <Button href="#prenota" variant="ghost">
+          <Button href="#prenota" variant="line">
             {dict.cta}
           </Button>
         </div>
