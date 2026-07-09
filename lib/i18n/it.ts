@@ -3,6 +3,7 @@ export const it = {
     links: [
       { label: "La Struttura", href: "#struttura" },
       { label: "Appartamenti", href: "#appartamenti" },
+      { label: "Piscina", href: "#piscina" },
       { label: "Territorio", href: "#territorio" },
       { label: "Prenota", href: "#prenota" },
       { label: "Dove siamo", href: "#location" },
@@ -70,6 +71,14 @@ export const it = {
         ],
       },
     },
+  },
+  outdoor: {
+    eyebrow: "Spazi comuni",
+    title: "La piscina e gli spazi all'aperto",
+    description:
+      "Cuore della struttura, la piscina è circondata da un ampio giardino di ulivi, lettini e zone pranzo all'ombra: lo spazio ideale per rilassarsi al sole o cenare sotto le stelle di Sicilia.",
+    alt: "Piscina e giardino de Il dono di Atena",
+    photos: "foto",
   },
   experience: {
     eyebrow: "Esperienza & Territorio",

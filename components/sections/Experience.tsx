@@ -51,7 +51,7 @@ export default function Experience({
 
           <div className="relative aspect-[3/4] overflow-hidden rounded-2xl shadow-2xl shadow-black/30">
             <Image
-              src="/images/territory/vista.jpg"
+              src="/images/territory/vista.webp"
               alt={dict.imageAlt}
               fill
               sizes="(max-width: 1024px) 100vw, 50vw"

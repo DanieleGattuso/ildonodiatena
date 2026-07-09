@@ -5,6 +5,7 @@ export const en: Dictionary = {
     links: [
       { label: "The Property", href: "#struttura" },
       { label: "Apartments", href: "#appartamenti" },
+      { label: "Pool", href: "#piscina" },
       { label: "Surroundings", href: "#territorio" },
       { label: "Book", href: "#prenota" },
       { label: "Location", href: "#location" },
@@ -72,6 +73,14 @@ export const en: Dictionary = {
         ],
       },
     },
+  },
+  outdoor: {
+    eyebrow: "Shared spaces",
+    title: "The pool and the outdoor areas",
+    description:
+      "At the heart of the property, the pool is surrounded by a large olive garden, sun loungers and shaded dining areas: the perfect place to relax in the sun or dine under the Sicilian stars.",
+    alt: "Pool and garden at Il dono di Atena",
+    photos: "photos",
   },
   experience: {
     eyebrow: "Experience & Surroundings",

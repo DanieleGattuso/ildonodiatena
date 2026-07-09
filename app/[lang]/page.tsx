@@ -8,6 +8,7 @@ import Footer from "@/components/layout/Footer";
 import Hero from "@/components/sections/Hero";
 import Features from "@/components/sections/Features";
 import Apartments from "@/components/sections/Apartments";
+import Outdoor from "@/components/sections/Outdoor";
 import Experience from "@/components/sections/Experience";
 import Booking from "@/components/sections/Booking";
 import Location from "@/components/sections/Location";
@@ -29,6 +30,7 @@ export default async function Home({
         <Hero lang={lang} dict={dict.hero} />
         <Features dict={dict.features} />
         <Apartments dict={dict.apartments} />
+        <Outdoor dict={dict.outdoor} />
         <Experience dict={dict.experience} />
         <Booking lang={lang} dict={dict.booking} />
         <Location dict={dict.location} />

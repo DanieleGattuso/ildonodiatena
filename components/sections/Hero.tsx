@@ -20,7 +20,7 @@ export default function Hero({ dict }: HeroProps) {
   return (
     <section className="relative flex min-h-screen items-center justify-center overflow-hidden">
       <Image
-        src="/images/hero/villa.jpg"
+        src="/images/hero/villa.webp"
         alt={dict.subtitle}
         fill
         priority

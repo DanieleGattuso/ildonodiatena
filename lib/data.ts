@@ -16,34 +16,42 @@ export type Apartment = {
   gallery: string[];
 };
 
+/**
+ * Costruisce l'elenco dei percorsi immagine numerati (es. atena-01.webp …).
+ * Le foto sono ordinate con la copertina in prima posizione.
+ */
+function gallery(folder: string, prefix: string, count: number): string[] {
+  return Array.from(
+    { length: count },
+    (_, i) =>
+      `/images/${folder}/${prefix}-${String(i + 1).padStart(2, "0")}.webp`
+  );
+}
+
+const atenaGallery = gallery("apartments/atena", "atena", 20);
+const eraGallery = gallery("apartments/era", "era", 14);
+
 export const apartments: Apartment[] = [
   {
     id: "atena",
     name: "Atena",
     pricePerNight: 12000, // 120,00 €
     maxGuests: 4,
-    image: "/images/apartments/atena.jpg",
-    gallery: [
-      "/images/apartments/atena.jpg",
-      "/images/apartments/atena-1.jpg",
-      "/images/apartments/atena-2.jpg",
-      "/images/apartments/atena-3.jpg",
-    ],
+    image: atenaGallery[0],
+    gallery: atenaGallery,
   },
   {
     id: "era",
     name: "Era",
     pricePerNight: 11000, // 110,00 €
     maxGuests: 4,
-    image: "/images/apartments/era.jpg",
-    gallery: [
-      "/images/apartments/era.jpg",
-      "/images/apartments/era-1.jpg",
-      "/images/apartments/era-2.jpg",
-      "/images/apartments/era-3.jpg",
-    ],
+    image: eraGallery[0],
+    gallery: eraGallery,
   },
 ];
+
+/** Foto degli spazi comuni: piscina, giardino e zone pranzo all'aperto. */
+export const outdoorGallery: string[] = gallery("outdoor", "outdoor", 23);
 
 /** Lookup rapido per id (usato lato server in fase di checkout). */
 export function getApartment(id: string): Apartment | undefined {
